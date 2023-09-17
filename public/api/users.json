@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "username": "john_doe",
+    "email": "john.doe@example.com",
+    "level": 30
+  },
+  {
+    "id": 2,
+    "username": "jane_doe",
+    "email": "jane.doe@example.com",
+    "level": 25
+  },
+  {
+    "id": 3,
+    "username": "sam_smith",
+    "email": "sam.smith@example.com",
+    "level": 40
+  },
+  {
+    "id": 4,
+    "username": "mary_jones",
+    "email": "mary.jones@example.com",
+    "level": 35
+  },
+  {
+    "id": 5,
+    "username": "alex_brown",
+    "email": "alex.brown@example.com",
+    "level": 20
+  },
+  {
+    "id": 6,
+    "username": "emily_davis",
+    "email": "emily.davis@example.com",
+    "level": 15
+  },
+  {
+    "id": 7,
+    "username": "michael_taylor",
+    "email": "michael.taylor@example.com",
+    "level": 50
+  },
+  {
+    "id": 8,
+    "username": "olivia_jackson",
+    "email": "olivia.jackson@example.com",
+    "level": 45
+  },
+  {
+    "id": 9,
+    "username": "david_wilson",
+    "email": "david.wilson@example.com",
+    "level": 10
+  }
+]
