@@ -1,30 +1,28 @@
 <script>
     import Icon from "@iconify/svelte";
     export let mod;
-    export let index;
     export let position;
 
     const src =
-        mod.wikiaThumbnail?.substring(0, mod.wikiaThumbnail.lastIndexOf(".png") + 4) ||
+        mod?.wikiaThumbnail?.substring(0, mod.wikiaThumbnail.lastIndexOf(".png") + 4) ||
         "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
-    const lvl = mod.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
+    const lvl = mod?.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
 </script>
 
 <div
-    data-index={index}
     class="rounded p-4 shadow-lg hover:cursor-pointer hover:shadow-purple-600 dark:bg-gray-900"
     style={position
         ? `position: absolute;top: ${position.top}px; left: ${position.left}px; width: ${position.width}px; height: ${position.height}px`
-        : ""}
+        : "visibility: hidden"}
 >
     <div class="relative flex aspect-[4/6] items-center justify-center">
-        <img {src} alt={mod.name} loading="lazy" width="400" height="600" />
-        {#if mod.ItemCount > 1}
+        <img {src} alt={mod?.name} loading="lazy" width="400" height="600" />
+        {#if mod?.ItemCount > 1}
             <div
                 class="absolute left-1 top-5 flex items-center justify-center gap-1 rounded-br rounded-tr border border-l-0 border-indigo-500 bg-black bg-opacity-75 px-2 text-sm"
             >
                 <Icon icon="solar:copy-bold-duotone" />
-                <b>{mod.ItemCount}</b>
+                <b>{mod?.ItemCount}</b>
             </div>
         {/if}
         <div
@@ -38,13 +36,13 @@
                 {#each Array(lvl) as _}
                     <div class="drop-shadow-glow h-1.5 w-1.5 rounded-full bg-blue-300"></div>
                 {/each}
-                {#each Array(Math.max(0, (mod.fusionLimit || 0) - lvl)) as _}
+                {#each Array(Math.max(0, (mod?.fusionLimit || 0) - lvl)) as _}
                     <div class="h-1.5 w-1.5 rounded-full bg-gray-300"></div>
                 {/each}
             </div>
         </div>
     </div>
 
-    <h2 class="mb-2 whitespace-nowrap text-xl font-semibold">{mod.name}</h2>
-    <p class="uppercase">{mod.compatName}</p>
+    <h2 class="mb-2 overflow-hidden text-ellipsis whitespace-nowrap font-semibold">{mod?.name}</h2>
+    <p class="text-xs uppercase">{mod?.compatName}</p>
 </div>
