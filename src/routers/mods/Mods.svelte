@@ -35,30 +35,28 @@
     let canShowCount;
     let gridHeight = 0;
     function gridInit() {
-        for (const item of gridElm.children) {
-            if (item) {
-                const { width, height } = item.getBoundingClientRect();
-                gridItemsPosition.push({ width, height, top: 0, left: 0 });
-                break;
-            }
-        }
         updateGridParams();
         getAllGridItemsPosition();
         getVisibleItems();
     }
     function updateGridParams() {
-        const { width, height } = gridItemsPosition[0];
+        const gridRect = gridElm.getBoundingClientRect();
+        const { width, height } = gridElm.firstElementChild.getBoundingClientRect();
+
         gridParams = {
             width,
             height,
-            gridWidth: gridElm.offsetWidth,
+            gridWidth: gridRect.width,
             rowItemsCount: 0,
             gap: 0,
+            responsive: [],
         };
+
         gridParams.rowItemsCount = Math.floor(gridParams.gridWidth / width);
         gridParams.gap =
             (gridParams.gridWidth - gridParams.rowItemsCount * width) /
             (gridParams.rowItemsCount - 1);
+
         updateGridHeight();
     }
     function updateGridHeight() {
@@ -71,12 +69,15 @@
     }
     function getVisibleItems() {
         const { height, rowItemsCount } = gridParams;
-        canShowCount = Math.ceil(window.innerHeight / height) * rowItemsCount * 2;
-        startingIndex = gridItemsPosition.findIndex((i) => i.top + i.height >= window.scrollY);
+        const columnElements = Math.ceil(window.innerHeight / height);
+        canShowCount = columnElements * rowItemsCount * 3; // 3 - prev, current, next screen
+        startingIndex = gridItemsPosition.findIndex(
+            (i) => i.top + i.height * columnElements >= window.scrollY,
+        );
     }
     function getAllGridItemsPosition() {
         const { rowItemsCount, height, width, gap } = gridParams;
-        for (let i = 1; i < filteredRawUpgrades.length + filteredUpgrades.length; i++) {
+        for (let i = 0; i < filteredRawUpgrades.length + filteredUpgrades.length; i++) {
             const [columnIndex, rowIndex] = [Math.floor(i / rowItemsCount), i % rowItemsCount];
 
             gridItemsPosition[i] = {
@@ -104,9 +105,11 @@
         gridInit();
 
         window.addEventListener("scroll", getVisibleItems);
+        window.addEventListener("resize", gridInit);
     });
     onDestroy(() => {
         window.removeEventListener("scroll", getVisibleItems);
+        window.removeEventListener("resize", gridInit);
     });
 </script>
 
@@ -116,21 +119,18 @@
 
 <div
     bind:this={gridElm}
-    class="relative grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+    class="relative grid grid-cols-3 items-start gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7"
     style={`height: ${gridHeight}px`}
 >
+    <ModCard mod={undefined} position={undefined} />
     {#each filteredRawUpgrades as mod, index (mod.uniqueName)}
-        {#if (startingIndex === undefined && index === 0) || (startingIndex <= index && index < startingIndex + canShowCount)}
-            <ModCard {mod} {index} position={gridItemsPosition[index]} />
+        {#if startingIndex <= index && index < startingIndex + canShowCount}
+            <ModCard {mod} position={gridItemsPosition[index]} />
         {/if}
     {/each}
     {#each filteredUpgrades as mod, index (mod.ItemId.$oid)}
         {#if startingIndex <= filteredRawUpgrades.length + index && filteredRawUpgrades.length + index < startingIndex + canShowCount}
-            <ModCard
-                {mod}
-                index={filteredRawUpgrades.length + index}
-                position={gridItemsPosition[filteredRawUpgrades.length + index]}
-            />
+            <ModCard {mod} position={gridItemsPosition[filteredRawUpgrades.length + index]} />
         {/if}
     {/each}
 </div>
