@@ -2,7 +2,10 @@
     "name": "warframe-launcher",
     "private": true,
     "version": "0.0.0",
-    "bin": "src/express.js",
+    "bin": "build/index.js",
+    "pkg": {
+        "assets": "build/"
+    },
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -11,10 +14,7 @@
         "tauri": "tauri",
         "tauri:dev": "npm run tauri dev",
         "tauri:build": "npm run tauri build",
-        "package": "pkg package.json --output src-tauri/binaries/WarframeServer && node scripts/move-binary.js"
-    },
-    "dependencies": {
-        "express": "^4.18.2"
+        "package": "pkg package.json --debug --output src-tauri/binaries/WarframeServer && node scripts/move-binary.js"
     },
     "devDependencies": {
         "@iconify/svelte": "^3.1.4",
