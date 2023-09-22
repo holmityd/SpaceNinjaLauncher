@@ -250,6 +250,7 @@
 <div class="flex gap-4">
     {#each Object.keys(categories) as category}
         <Button
+            roundedFull={true}
             active={category === categoryValue}
             classes="capitalize"
             on:click={() => categorySelect(category)}>{category}</Button
