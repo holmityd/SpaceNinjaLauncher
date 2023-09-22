@@ -8,7 +8,7 @@ function extractJson(fileName, items, keysToExtract) {
     const content = {};
     // console.log(items);
     items.forEach((item) => {
-        // if (item.name === "Spinning Needle") console.log(item);
+        if (item.name === "Aviator") console.log(item);
         content[item.uniqueName] = keysToExtract.reduce(
             (obj, key) => ({ ...obj, [key]: item[key] }),
             {},
@@ -34,6 +34,7 @@ extractJson("mods", new Items({ category: ["Mods"] }), [
     "rarity",
     "description",
     "type",
+    "isUtility",
     "name",
     "rarity",
     "levelStats",

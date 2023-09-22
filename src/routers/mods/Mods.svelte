@@ -4,27 +4,28 @@
     import { filterBySearch } from "../../lib/common";
     import modsData from "../../../data/mods.json";
     import ModCard from "./ModCard.svelte";
+    import ModCategories from "./ModCategories.svelte";
+    import ModFilters from "./ModFilters.svelte";
 
     // init data
-    let rawUpgrades = [];
-    let upgrades = [];
+    let mods = [];
     async function initData() {
-        const response = await fetch("/api/mods.json");
-        const mods = await response.json();
+        const modsResponse = await fetch("/api/mods.json");
+        const modsResponseJson = await modsResponse.json();
 
-        rawUpgrades = mods.RawUpgrades.map(({ ItemType, ItemCount }) => {
+        const rawUpgrades = modsResponseJson.RawUpgrades.map(({ ItemType, ItemCount }) => {
             const modsDataItem = modsData[ItemType];
             return modsDataItem ? { ItemCount, ...modsDataItem } : null;
-        })
-            .filter(Boolean)
-            .sort((a, b) => b.ItemCount - a.ItemCount);
-        // .filter((i, index) => index < 100);
-
-        upgrades = mods.Upgrades.map(({ ItemType, UpgradeFingerprint, ItemId }) => {
-            const modsDataItem = modsData[ItemType];
-            return modsDataItem ? { ItemId, UpgradeFingerprint, ...modsDataItem } : null;
         }).filter(Boolean);
-        // .filter((i, index) => index < 100);
+
+        const upgrades = modsResponseJson.Upgrades.map(
+            ({ ItemType, UpgradeFingerprint, ItemId }) => {
+                const modsDataItem = modsData[ItemType];
+                return modsDataItem ? { ItemId, UpgradeFingerprint, ...modsDataItem } : null;
+            },
+        ).filter(Boolean);
+
+        mods = rawUpgrades.concat(upgrades);
     }
 
     // scroll optimization
@@ -62,10 +63,7 @@
     function updateGridHeight() {
         if (!gridParams) return;
         const { rowItemsCount, height, gap } = gridParams;
-        gridHeight =
-            Math.ceil((filteredRawUpgrades.length + filteredUpgrades.length) / rowItemsCount) *
-                (height + gap) -
-            gap;
+        gridHeight = Math.ceil(searchedMods.length / rowItemsCount) * (height + gap) - gap;
     }
     function getVisibleItems() {
         const { height, rowItemsCount } = gridParams;
@@ -77,7 +75,7 @@
     }
     function getAllGridItemsPosition() {
         const { rowItemsCount, height, width, gap } = gridParams;
-        for (let i = 0; i < filteredRawUpgrades.length + filteredUpgrades.length; i++) {
+        for (let i = 0; i < searchedMods.length; i++) {
             const [columnIndex, rowIndex] = [Math.floor(i / rowItemsCount), i % rowItemsCount];
 
             gridItemsPosition[i] = {
@@ -89,17 +87,40 @@
         }
     }
 
+    // filter
+    let filter;
+    let filteredMods = [];
+    $: {
+        filteredMods = (filter && filter(mods)) || mods;
+    }
+
+    // category
+    let category;
+    let categoriedMods = [];
+    $: {
+        switch (category?.value) {
+            case undefined:
+            case "all":
+                categoriedMods = filteredMods;
+                break;
+            case "duplicates":
+                categoriedMods = filteredMods.filter((item) => item.ItemCount > 1);
+                break;
+            case "exilus":
+                categoriedMods = filteredMods.filter((item) => item.isUtility);
+                break;
+            default:
+                categoriedMods = filteredMods.filter((item) =>
+                    category?.copmatNames.includes(item.compatName?.toLowerCase()),
+                );
+        }
+    }
+
     // search
     let searchTerm = "";
-    let filteredRawUpgrades = [];
-    let filteredUpgrades = [];
+    let searchedMods = [];
     $: {
-        filteredRawUpgrades = filterBySearch(searchTerm, rawUpgrades, [
-            "name",
-            "compatName",
-            "levelStats.0.stats.all",
-        ]);
-        filteredUpgrades = filterBySearch(searchTerm, upgrades, [
+        searchedMods = filterBySearch(searchTerm, categoriedMods, [
             "name",
             "compatName",
             "levelStats.0.stats.all",
@@ -121,8 +142,12 @@
     });
 </script>
 
-<div class="sticky top-0 z-10 mb-4 flex gap-4">
+<div class="sticky top-0 z-10 flex flex-col gap-4 pb-4" style="background-color: #2f2f2f;">
     <Search bind:value={searchTerm} />
+    <div class="flex justify-between">
+        <ModCategories bind:value={category} />
+        <ModFilters bind:value={filter} />
+    </div>
 </div>
 
 <div
@@ -130,15 +155,10 @@
     class="relative grid grid-cols-3 items-start gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7"
     style={`height: ${gridHeight}px`}
 >
-    <ModCard mod={undefined} position={undefined} />
-    {#each filteredRawUpgrades as mod, index (mod.uniqueName)}
+    <ModCard mod={undefined} />
+    {#each searchedMods as mod, index}
         {#if startingIndex <= index && index < startingIndex + canShowCount}
             <ModCard {mod} position={gridItemsPosition[index]} />
-        {/if}
-    {/each}
-    {#each filteredUpgrades as mod, index (mod.ItemId.$oid)}
-        {#if startingIndex <= filteredRawUpgrades.length + index && filteredRawUpgrades.length + index < startingIndex + canShowCount}
-            <ModCard {mod} position={gridItemsPosition[filteredRawUpgrades.length + index]} />
         {/if}
     {/each}
 </div>

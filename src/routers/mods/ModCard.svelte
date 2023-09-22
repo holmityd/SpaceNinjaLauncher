@@ -4,9 +4,6 @@
     export let mod;
     export let position = undefined;
 
-    const image =
-        mod?.wikiaThumbnail?.substring(0, mod.wikiaThumbnail.lastIndexOf(".png") + 4) ||
-        "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
     const statIcons = [
         "<DT_IMPACT>",
         "<DT_FREEZE>",
@@ -20,9 +17,14 @@
         "<DT_EXPLOSION>",
         "<DT_CORROSIVE>",
         "<DT_MAGNETIC>",
+        "<DT_VIRAL>",
     ];
     const regexPattern = `(${statIcons.join("|")})`;
     const regex = new RegExp(regexPattern, "g");
+
+    $: image =
+        mod?.wikiaThumbnail?.substring(0, mod.wikiaThumbnail.lastIndexOf(".png") + 4) ||
+        "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
 
     $: lvl = mod?.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
 
@@ -36,8 +38,13 @@
 </script>
 
 <Card {position}>
-    <div class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden">
-        <div class="aspect-[3/2] overflow-hidden rounded-t-lg bg-gray-950">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div
+        class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden"
+        on:click={() => console.log(mod)}
+    >
+        <div class="aspect-[5/4] overflow-hidden rounded-t-lg bg-gray-950">
             <img class="w-full scale-110" src={image} alt="mod" />
         </div>
 
