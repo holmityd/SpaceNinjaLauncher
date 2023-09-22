@@ -142,12 +142,10 @@
     });
 </script>
 
-<div class="sticky top-0 z-10 flex flex-col gap-4 pb-4" style="background-color: #2f2f2f;">
-    <Search bind:value={searchTerm} />
-    <div class="flex justify-between">
-        <ModCategories bind:value={category} />
-        <ModFilters bind:value={filter} />
-    </div>
+<div class="sticky top-0 z-10 flex gap-4 py-4" style="background-color: #2f2f2f;">
+    <Search id="warframelauncher-mod-search" bind:value={searchTerm} />
+    <ModCategories bind:value={category} />
+    <ModFilters bind:value={filter} />
 </div>
 
 <div

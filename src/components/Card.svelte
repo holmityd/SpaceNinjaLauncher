@@ -1,12 +1,20 @@
 <script>
     export let position = undefined;
+    export let ring = undefined;
 </script>
 
-<div
-    class="mb-4 flex max-w-sm flex-col divide-gray-800 overflow-hidden rounded-lg border border-gray-800 bg-gray-900 text-gray-400 shadow-md hover:bg-gray-800"
-    style={position
+<!-- svelte-ignore a11y-missing-attribute -->
+<a
+    class="card mb-4 flex max-w-sm flex-col divide-gray-800 overflow-hidden rounded-lg border border-gray-800 bg-gray-900 text-gray-400 shadow-md transition hover:border-blue-600 hover:bg-gray-800 hover:text-gray-400 active:ring-4 active:ring-blue-800"
+    style="--tw-ring-color: {ring}; {position
         ? `position: absolute;top: ${position.top}px; left: ${position.left}px; width: ${position.width}px; height: ${position.height}px`
-        : "visibility: hidden"}
+        : 'visibility: hidden'}"
 >
     <slot />
-</div>
+</a>
+
+<style>
+    .card:hover {
+        border-color: var(--tw-ring-color);
+    }
+</style>

@@ -28,7 +28,8 @@
 </script>
 
 <Select
-    classes="w-32"
+    id="warframelauncher-mod-filter"
+    classes="w-32 capitalize"
     bind:value={selectedOption}
     options={Object.keys(filters)}
     on:change={handleChange}

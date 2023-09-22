@@ -21,6 +21,12 @@
     ];
     const regexPattern = `(${statIcons.join("|")})`;
     const regex = new RegExp(regexPattern, "g");
+    const rarityColors = {
+        Legendary: "#fff",
+        Uncommon: "#67e8f9",
+        Common: "#fca5a5",
+        Rare: "#fcd34d",
+    };
 
     $: image =
         mod?.wikiaThumbnail?.substring(0, mod.wikiaThumbnail.lastIndexOf(".png") + 4) ||
@@ -37,14 +43,14 @@
             : "";
 </script>
 
-<Card {position}>
+<Card {position} ring={rarityColors[mod?.rarity]}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
         class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden"
         on:click={() => console.log(mod)}
     >
-        <div class="aspect-[5/4] overflow-hidden rounded-t-lg bg-gray-950">
+        <div class="pointer-events-none aspect-[5/4] overflow-hidden rounded-t-lg bg-gray-950">
             <img class="w-full scale-110" src={image} alt="mod" />
         </div>
 
@@ -61,7 +67,10 @@
         <div class="flex flex-grow flex-col overflow-hidden p-4">
             {#if mod}
                 <!-- name -->
-                <h5 class="mb-2 text-xl font-bold tracking-tight text-white {mod.rarity}">
+                <h5
+                    class="mb-2 text-xl font-bold tracking-tight"
+                    style="color: {rarityColors[mod?.rarity]}"
+                >
                     {mod.name}
                 </h5>
 
@@ -89,7 +98,7 @@
                 </div>
 
                 <!-- level -->
-                <div class="flex justify-center gap-1">
+                <div class="mt-1 flex justify-center gap-1">
                     {#each Array(lvl) as _}
                         <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
                     {/each}
@@ -101,15 +110,3 @@
         </div>
     </div>
 </Card>
-
-<style>
-    .Uncommon {
-        color: #67e8f9;
-    }
-    .Common {
-        color: #fca5a5;
-    }
-    .Rare {
-        color: #fcd34d;
-    }
-</style>
