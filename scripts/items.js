@@ -3,10 +3,12 @@ import path from "path";
 import Items from "warframe-items";
 
 function extractJson(fileName, items, keysToExtract) {
-    const directoryPath = "../data";
+    const directoryPath = "data";
     const filePath = path.join(directoryPath, `${fileName}.json`);
     const content = {};
+    // console.log(items);
     items.forEach((item) => {
+        // if (item.name === "Spinning Needle") console.log(item);
         content[item.uniqueName] = keysToExtract.reduce(
             (obj, key) => ({ ...obj, [key]: item[key] }),
             {},
@@ -30,7 +32,10 @@ extractJson("mods", new Items({ category: ["Mods"] }), [
     "wikiaUrl",
     "uniqueName",
     "rarity",
+    "description",
+    "type",
     "name",
+    "rarity",
     "levelStats",
     "polarity",
     "baseDrain",

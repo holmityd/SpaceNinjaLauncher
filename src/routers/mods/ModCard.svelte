@@ -1,48 +1,108 @@
 <script>
+    import Card from "../../components/Card.svelte";
     import Icon from "@iconify/svelte";
     export let mod;
-    export let position;
+    export let position = undefined;
 
-    const src =
+    const image =
         mod?.wikiaThumbnail?.substring(0, mod.wikiaThumbnail.lastIndexOf(".png") + 4) ||
         "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
-    const lvl = mod?.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
+    const statIcons = [
+        "<DT_IMPACT>",
+        "<DT_FREEZE>",
+        "<DT_FIRE>",
+        "<DT_POISON>",
+        "<DT_SLASH>",
+        "<DT_ELECTRICITY>",
+        "<DT_PUNCTURE>",
+        "<DT_RADIATION>",
+        "<DT_SENTIENT>",
+        "<DT_EXPLOSION>",
+        "<DT_CORROSIVE>",
+        "<DT_MAGNETIC>",
+    ];
+    const regexPattern = `(${statIcons.join("|")})`;
+    const regex = new RegExp(regexPattern, "g");
+
+    $: lvl = mod?.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
+
+    $: stats =
+        mod?.levelStats && mod.levelStats[lvl]
+            ? mod.levelStats[lvl]?.stats.reduce(
+                  (acc, item) => acc + item.replace(regex, "") + "\n",
+                  "",
+              )
+            : "";
 </script>
 
-<div
-    class="rounded p-4 shadow-lg hover:cursor-pointer hover:shadow-purple-600 dark:bg-gray-900"
-    style={position
-        ? `position: absolute;top: ${position.top}px; left: ${position.left}px; width: ${position.width}px; height: ${position.height}px`
-        : "visibility: hidden"}
->
-    <div class="relative flex aspect-[4/6] items-center justify-center">
-        <img {src} alt={mod?.name} loading="lazy" width="400" height="600" />
+<Card {position}>
+    <div class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden">
+        <div class="aspect-[3/2] overflow-hidden rounded-t-lg bg-gray-950">
+            <img class="w-full scale-110" src={image} alt="mod" />
+        </div>
+
+        <!-- count -->
         {#if mod?.ItemCount > 1}
             <div
-                class="absolute left-1 top-5 flex items-center justify-center gap-1 rounded-br rounded-tr border border-l-0 border-indigo-500 bg-black bg-opacity-75 px-2 text-sm"
+                class="pointer-events-none absolute left-0 top-0.5 flex items-center justify-center gap-1 rounded-br rounded-tr border border-l-0 border-gray-900 bg-black bg-opacity-75 px-2 text-white"
             >
                 <Icon icon="solar:copy-bold-duotone" />
                 <b>{mod?.ItemCount}</b>
             </div>
         {/if}
-        <div
-            class="absolute bottom-2 left-1/2 flex w-9/12 -translate-x-1/2 transform items-center justify-center rounded-tl rounded-tr border border-b-0 border-indigo-500 bg-black bg-opacity-75 p-2"
-        >
-            <!-- Glowing Line -->
-            <div class="drop-shadow-glow h-0.5 w-full rounded-lg bg-gray-300"></div>
 
-            <!-- Glowing Dots -->
-            <div class="absolute flex gap-1">
-                {#each Array(lvl) as _}
-                    <div class="drop-shadow-glow h-1.5 w-1.5 rounded-full bg-blue-300"></div>
-                {/each}
-                {#each Array(Math.max(0, (mod?.fusionLimit || 0) - lvl)) as _}
-                    <div class="h-1.5 w-1.5 rounded-full bg-gray-300"></div>
-                {/each}
-            </div>
+        <div class="flex flex-grow flex-col overflow-hidden p-4">
+            {#if mod}
+                <!-- name -->
+                <h5 class="mb-2 text-xl font-bold tracking-tight text-white {mod.rarity}">
+                    {mod.name}
+                </h5>
+
+                <!-- description -->
+                <div class="flex-grow overflow-hidden text-sm">
+                    {#if mod?.description}
+                        <p>{mod?.type}: {mod?.description}</p>
+                    {/if}
+
+                    <!-- stats -->
+                    {#if stats}
+                        <p class="mb-3 whitespace-pre-line font-normal leading-tight text-gray-400">
+                            {stats}
+                        </p>
+                    {/if}
+                </div>
+
+                <!-- compat -->
+                <div>
+                    <span
+                        class="m-1 inline-block rounded border border-gray-300 px-3 py-1 text-xs uppercase"
+                    >
+                        {mod?.compatName}
+                    </span>
+                </div>
+
+                <!-- level -->
+                <div class="flex justify-center gap-1">
+                    {#each Array(lvl) as _}
+                        <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                    {/each}
+                    {#each Array(Math.max(0, (mod?.fusionLimit || 0) - lvl)) as _}
+                        <div class="h-1.5 w-1.5 rounded-full border border-white"></div>
+                    {/each}
+                </div>
+            {/if}
         </div>
     </div>
+</Card>
 
-    <h2 class="mb-2 overflow-hidden text-ellipsis whitespace-nowrap font-semibold">{mod?.name}</h2>
-    <p class="text-xs uppercase">{mod?.compatName}</p>
-</div>
+<style>
+    .Uncommon {
+        color: #67e8f9;
+    }
+    .Common {
+        color: #fca5a5;
+    }
+    .Rare {
+        color: #fcd34d;
+    }
+</style>

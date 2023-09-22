@@ -94,8 +94,16 @@
     let filteredRawUpgrades = [];
     let filteredUpgrades = [];
     $: {
-        filteredRawUpgrades = filterBySearch(searchTerm, rawUpgrades, ["name", "compatName"]);
-        filteredUpgrades = filterBySearch(searchTerm, upgrades, ["name", "compatName"]);
+        filteredRawUpgrades = filterBySearch(searchTerm, rawUpgrades, [
+            "name",
+            "compatName",
+            "levelStats.0.stats.all",
+        ]);
+        filteredUpgrades = filterBySearch(searchTerm, upgrades, [
+            "name",
+            "compatName",
+            "levelStats.0.stats.all",
+        ]);
         updateGridHeight();
     }
 
