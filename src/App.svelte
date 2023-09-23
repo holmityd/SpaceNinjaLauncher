@@ -4,6 +4,7 @@
     import Categories from "./routers/categories/Categories.svelte";
     import Users from "./routers/users/Users.svelte";
     import Mods from "./routers/mods/Mods.svelte";
+    import ModsAdd from "./routers/mods/ModsAdd.svelte";
 </script>
 
 <Router>
@@ -13,5 +14,6 @@
             <Categories id={params.id} />
         </Route>
         <Route path="/category/mods" component={Mods} />
+        <Route path="/category/mods/add" component={ModsAdd} />
     </div>
 </Router>

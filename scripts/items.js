@@ -36,7 +36,6 @@ extractJson("mods", new Items({ category: ["Mods"] }), [
     "type",
     "isUtility",
     "name",
-    "rarity",
     "levelStats",
     "polarity",
     "baseDrain",

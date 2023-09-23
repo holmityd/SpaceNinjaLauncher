@@ -1,5 +1,5 @@
 <script>
-    import Select from "../../components/Select.svelte";
+    import Select from "../../../components/Select.svelte";
     export let value;
     let selectedOption = "recent";
 

@@ -1,5 +1,5 @@
 <script>
-    import Card from "../../components/Card.svelte";
+    import Card from "../../../components/Card.svelte";
     import Icon from "@iconify/svelte";
     export let mod;
     export let position = undefined;
@@ -29,8 +29,11 @@
     };
 
     $: image =
-        mod?.wikiaThumbnail?.substring(0, mod.wikiaThumbnail.lastIndexOf(".png") + 4) ||
-        "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
+        mod?.wikiaThumbnail?.substring(
+            0,
+            (mod.wikiaThumbnail.lastIndexOf(".png") + 1 ||
+                mod.wikiaThumbnail.lastIndexOf(".gif") + 1) + 3,
+        ) || "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
 
     $: lvl = mod?.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
 
@@ -41,14 +44,22 @@
                   "",
               )
             : "";
+
+    // output
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+    function cardClick() {
+        dispatch("cardClick", mod);
+    }
 </script>
 
-<Card {position} ring={rarityColors[mod?.rarity]}>
+<Card {position} ring={rarityColors[mod?.rarity]} on:click={cardClick}>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-        class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden"
-        on:click={() => console.log(mod)}
+        class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden {mod?.active
+            ? 'bg-blue-800'
+            : ''}"
     >
         <div class="pointer-events-none aspect-[5/4] overflow-hidden rounded-t-lg bg-gray-950">
             <img class="w-full scale-110" src={image} alt="mod" />
