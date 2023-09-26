@@ -1,7 +1,12 @@
 <script>
-    import Input from "../components/Input.svelte";
+    import { Input } from "flowbite-svelte";
     export let value = "";
     export let id = undefined;
 </script>
 
-<Input {id} bind:value placeholder="Search..." />
+<Input
+    class="dark:border-gray-800 dark:bg-gray-900 {$$props.class}"
+    {id}
+    bind:value
+    placeholder="Search..."
+/>

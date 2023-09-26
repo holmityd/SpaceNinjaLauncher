@@ -1,0 +1,16 @@
+[
+    {
+        "path": "/dashboard",
+        "title": "Dashboard"
+    },
+    {
+        "path": "/dashboard/mods",
+        "title": "Mods",
+        "back": "/dashboard"
+    },
+    {
+        "path": "/dashboard/mods/add",
+        "title": "Mods - Add",
+        "back": "/dashboard/mods"
+    }
+]

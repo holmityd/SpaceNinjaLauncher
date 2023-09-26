@@ -1,14 +1,14 @@
 <script>
     import { navigate } from "svelte-routing";
     import { Card } from "flowbite-svelte";
-    import { fetchUserData } from "../../services/user.service";
     import { twMerge } from "tailwind-merge";
 
-    export let user;
+    export let category;
 
-    async function userSelect() {
-        navigate("/dashboard");
-        fetchUserData(user.id);
+    function click() {
+        if (category.working) {
+            navigate(`/dashboard/${category.url}`);
+        }
     }
 
     $: cardClass = twMerge(
@@ -19,9 +19,9 @@
     );
 </script>
 
-<Card class={cardClass} padding="none" color="none" on:click={userSelect}>
-    <div class="cursor-pointer p-4">
-        <h2 class="mb-2 text-2xl font-semibold">{user.username}</h2>
-        <p>Email: {user.email}</p>
+<Card class={cardClass} padding="none" color="none" on:click={click}>
+    <div class="aspect-[1/1] p-4 {category.working ? 'cursor-pointer' : ''}">
+        <i class="{category.icon} text-4xl"></i>
+        <p>{category.name}</p>
     </div>
 </Card>

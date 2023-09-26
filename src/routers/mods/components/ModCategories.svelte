@@ -1,28 +1,42 @@
 <script>
-    import Button from "../../../components/Button.svelte";
+    import Icon from "@iconify/svelte";
+    import { Tooltip, Button, ButtonGroup } from "flowbite-svelte";
     import categories from "./mod-categories.json";
 
+    // bind:value
     export let value;
-
-    // // output
-    // import { createEventDispatcher } from "svelte";
-    // const dispatch = createEventDispatcher();
-    function categorySelect(category) {
-        categoryValue = category;
-        value = { value: category, copmatNames: categories[category] };
-        // dispatch("categorySelect", { value: category, copmatNames: categories[category] });
+    function categorySelect({ key, compatNames }) {
+        value = { key, compatNames };
     }
 
-    let categoryValue = "all";
+    // tooltip
+    let tooltip;
+    function updateTooltip({ target }) {
+        if (target instanceof HTMLElement) {
+            tooltip = target.dataset.tooltip;
+        }
+    }
 </script>
 
-<div class="flex gap-4">
-    {#each Object.keys(categories) as category}
+<ButtonGroup class={$$props.class}>
+    {#each categories as category}
         <Button
-            roundedFull={true}
-            active={category === categoryValue}
-            classes="capitalize"
-            on:click={() => categorySelect(category)}>{category}</Button
+            size="xs"
+            color={category.key === (value?.key || "all") ? "blue" : "primary"}
+            class="category-button h-11 flex-grow gap-1 border border-transparent capitalize hover:border-blue-600"
+            data-tooltip={category.key}
+            on:click={() => categorySelect(category)}
         >
+            <Icon class="text-lg" icon={category.icon} />
+        </Button>
     {/each}
-</div>
+</ButtonGroup>
+<Tooltip
+    type="custom"
+    arrow={false}
+    class="bg-gray-950"
+    triggeredBy=".category-button"
+    on:show={updateTooltip}
+>
+    {tooltip}
+</Tooltip>

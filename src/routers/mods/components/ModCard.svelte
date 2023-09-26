@@ -1,9 +1,23 @@
 <script>
-    import Card from "../../../components/Card.svelte";
+    import { createEventDispatcher } from "svelte";
+    import { twMerge } from "tailwind-merge";
+    import { Card } from "flowbite-svelte";
     import Icon from "@iconify/svelte";
     export let mod;
     export let position = undefined;
 
+    // image
+    $: image =
+        mod?.wikiaThumbnail?.substring(
+            0,
+            (mod.wikiaThumbnail.lastIndexOf(".png") + 1 ||
+                mod.wikiaThumbnail.lastIndexOf(".gif") + 1) + 3,
+        ) || "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
+
+    // level
+    $: lvl = mod?.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
+
+    // stats
     const statIcons = [
         "<DT_IMPACT>",
         "<DT_FREEZE>",
@@ -21,22 +35,6 @@
     ];
     const regexPattern = `(${statIcons.join("|")})`;
     const regex = new RegExp(regexPattern, "g");
-    const rarityColors = {
-        Legendary: "#fff",
-        Uncommon: "#67e8f9",
-        Common: "#fca5a5",
-        Rare: "#fcd34d",
-    };
-
-    $: image =
-        mod?.wikiaThumbnail?.substring(
-            0,
-            (mod.wikiaThumbnail.lastIndexOf(".png") + 1 ||
-                mod.wikiaThumbnail.lastIndexOf(".gif") + 1) + 3,
-        ) || "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
-
-    $: lvl = mod?.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
-
     $: stats =
         mod?.levelStats && mod.levelStats[lvl]
             ? mod.levelStats[lvl]?.stats.reduce(
@@ -45,21 +43,48 @@
               )
             : "";
 
-    // output
-    import { createEventDispatcher } from "svelte";
+    // rarity
+    const rarityCard = {
+        Common: "hover:border-red-400 ring-red-400",
+        Uncommon: "hover:border-blue-400 ring-blue-400",
+        Rare: "hover:border-yellow-200 ring-yellow-200",
+        Legendary: "hover:border-white ring-white",
+    };
+    const rarityTitle = {
+        Common: "text-red-400",
+        Uncommon: "text-blue-400",
+        Rare: "text-yellow-200",
+        Legendary: "text-white",
+    };
+
+    // on:cardClick
     const dispatch = createEventDispatcher();
     function cardClick() {
         dispatch("cardClick", mod);
     }
+
+    $: cardClass = twMerge(
+        "transition overflow-hidden",
+        "bg-gray-900 border-gray-800 text-gray-400",
+        "hover:bg-gray-800",
+        "active:ring-4",
+        !position && "invisible",
+        rarityCard[mod?.rarity],
+        $$props.class,
+    );
 </script>
 
-<Card {position} ring={rarityColors[mod?.rarity]} on:click={cardClick}>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
+<Card
+    class={cardClass}
+    padding="none"
+    color="none"
+    on:click={cardClick}
+    style={position?.top !== undefined &&
+        `position: absolute;top: ${position.top}px; left: ${position.left}px; width: ${position.width}px; height: ${position.height}px`}
+>
     <div
-        class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden {mod?.active
-            ? 'bg-blue-800'
-            : ''}"
+        class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden text-center
+            {mod?.active && 'bg-blue-700'}"
     >
         <div class="pointer-events-none aspect-[5/4] overflow-hidden rounded-t-lg bg-gray-950">
             <img class="w-full scale-110" src={image} alt="mod" />
@@ -78,10 +103,7 @@
         <div class="flex flex-grow flex-col overflow-hidden p-4">
             {#if mod}
                 <!-- name -->
-                <h5
-                    class="mb-2 text-xl font-bold tracking-tight"
-                    style="color: {rarityColors[mod?.rarity]}"
-                >
+                <h5 class="mb-2 text-xl font-bold tracking-tight {rarityTitle[mod.rarity]}">
                     {mod.name}
                 </h5>
 

@@ -1,10 +1,9 @@
 <script>
-    import Select from "../../../components/Select.svelte";
+    import { Select } from "flowbite-svelte";
     export let value;
-    let selectedOption = "recent";
 
+    // sort functions
     const rarityOrder = ["Legendary", "Rare", "Uncommon", "Common"];
-
     const filters = {
         recent: (arr) => arr,
         rarity: (arr) =>
@@ -25,12 +24,16 @@
     function handleChange(event) {
         value = filters[event.target.value];
     }
+
+    // Select props
+    let selectedOption = "recent";
+    const items = Object.keys(filters).map((i) => ({ value: i, name: i }));
 </script>
 
 <Select
-    id="warframelauncher-mod-filter"
-    classes="w-32 capitalize"
+    class="dark:bg-primary-600 dark:border-primary-700 capitalize {$$props.class}"
+    placeholder=""
     bind:value={selectedOption}
-    options={Object.keys(filters)}
+    {items}
     on:change={handleChange}
 />

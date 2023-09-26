@@ -6,10 +6,14 @@
     import ModCategories from "./ModCategories.svelte";
     import ModFilters from "./ModFilters.svelte";
     import { createEventDispatcher } from "svelte";
-
-    const dispatch = createEventDispatcher();
+    import Grid from "../../../lib/Grid.svelte";
 
     export let mods = [];
+
+    $: {
+        mods;
+        setTimeout(() => getAllGridItemsPosition());
+    }
 
     // scroll optimization
     let gridElm;
@@ -62,10 +66,10 @@
             const [columnIndex, rowIndex] = [Math.floor(i / rowItemsCount), i % rowItemsCount];
 
             gridItemsPosition[i] = {
-                top: (height + gap) * columnIndex,
-                left: (width + gap) * rowIndex,
                 width,
                 height,
+                top: (height + gap) * columnIndex,
+                left: (width + gap) * rowIndex,
             };
         }
     }
@@ -73,15 +77,13 @@
     // filter
     let filter;
     let filteredMods = [];
-    $: {
-        filteredMods = (filter && filter(mods)) || mods;
-    }
+    $: filteredMods = (filter && filter(mods)) || mods;
 
     // category
     let category;
     let categoriedMods = [];
     $: {
-        switch (category?.value) {
+        switch (category?.key) {
             case undefined:
             case "all":
                 categoriedMods = filteredMods;
@@ -90,22 +92,17 @@
                 categoriedMods = filteredMods.filter((item) => item.ItemCount > 1);
                 break;
             case "exilus":
-                // console.log(
-                //     filteredMods.filter((item) => {
-                //         console.log(item.isUtility);
-                //         return item.isUtility;
-                //     }),
-                // );
                 categoriedMods = filteredMods.filter((item) => item.isUtility);
                 break;
             default:
                 categoriedMods = filteredMods.filter((item) =>
-                    category?.copmatNames.includes(item.compatName?.toLowerCase()),
+                    category?.compatNames.includes(item.compatName?.toLowerCase()),
                 );
         }
     }
 
     // search
+    const dispatch = createEventDispatcher();
     let searchTerm = "";
     let searchedMods = [];
     $: {
@@ -132,21 +129,29 @@
     });
 </script>
 
-<div class="sticky top-0 z-10 flex gap-4 py-4" style="background-color: #2f2f2f;">
-    <Search id="warframelauncher-mod-search" bind:value={searchTerm} />
-    <ModCategories bind:value={category} />
-    <ModFilters bind:value={filter} />
+<div
+    class="sticky top-0 z-10 flex flex-wrap gap-4 py-4 lg:flex-nowrap"
+    style="background-color: #2f2f2f;"
+>
+    <Search
+        class="order-1 w-1/3 flex-grow"
+        id="warframelauncher-mod-search"
+        bind:value={searchTerm}
+    />
+    <ModCategories class="order-3 w-full flex-grow lg:order-2" bind:value={category} />
+    <ModFilters class="order-2 w-1/3 flex-grow lg:order-3" bind:value={filter} />
 </div>
 
-<div
-    bind:this={gridElm}
-    class="relative grid grid-cols-3 items-start gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7"
+<Grid
+    on:elRef={({ detail }) => {
+        gridElm = detail;
+    }}
     style={`height: ${gridHeight}px`}
 >
-    <ModCard mod={undefined} />
+    <ModCard mod={undefined} position={null} />
     {#each searchedMods as mod, index}
         {#if startingIndex <= index && index < startingIndex + canShowCount}
             <ModCard {mod} position={gridItemsPosition[index]} on:cardClick />
         {/if}
     {/each}
-</div>
+</Grid>
