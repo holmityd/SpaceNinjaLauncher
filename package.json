@@ -14,7 +14,8 @@
         "tauri": "tauri",
         "tauri:dev": "npm run tauri dev",
         "tauri:build": "npm run tauri build",
-        "package": "pkg package.json --debug --output src-tauri/binaries/WarframeServer && node scripts/move-binary.js"
+        "package": "pkg package.json --output src-tauri/binaries/WarframeServer && node scripts/move-binary.js",
+        "postinstall": "npm run package"
     },
     "devDependencies": {
         "@iconify/svelte": "^3.1.4",

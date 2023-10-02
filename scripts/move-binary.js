@@ -7,30 +7,39 @@
  * When `tauri build` is ran, it looks for the binary name appended with the platform specific postfix.
  */
 
-// const execa = require('execa')
-// const fs = require('fs')
+import { execa } from "execa";
+import fs from "fs";
 
+const nodeServerBinName = "WarframeServer";
+const launchBinName = "Warframe.x64";
 
-import {execa} from 'execa';
-import fs from 'fs';
+let extension = "";
+if (process.platform === "win32") {
+    extension = ".exe";
+}
 
-let extension = ''
-if (process.platform === 'win32') {
-  extension = '.exe'
+async function createLaunchBin(targetTriple) {
+    fs.writeFile(`src-tauri/binaries/${launchBinName}-${targetTriple}${extension}`, "", (err) => {
+        if (err) throw err;
+    });
 }
 
 async function main() {
-  const rustInfo = (await execa('rustc', ['-vV'])).stdout
-  const targetTriple = /host: (\S+)/g.exec(rustInfo)[1]
-  if (!targetTriple) {
-    console.error('Failed to determine platform target triple')
-  }
-  fs.renameSync(
-    `src-tauri/binaries/WarframeServer${extension}`,
-    `src-tauri/binaries/WarframeServer-${targetTriple}${extension}`
-  )
+    const rustInfo = (await execa("rustc", ["-vV"])).stdout;
+    const targetTriple = /host: (\S+)/g.exec(rustInfo)[1];
+
+    if (!targetTriple) {
+        console.error("Failed to determine platform target triple");
+    }
+
+    await createLaunchBin(targetTriple);
+
+    fs.renameSync(
+        `src-tauri/binaries/${nodeServerBinName}${extension}`,
+        `src-tauri/binaries/${nodeServerBinName}-${targetTriple}${extension}`,
+    );
 }
 
 main().catch((e) => {
-  throw e
-})
+    throw e;
+});
