@@ -6,17 +6,13 @@ function extractJson(fileName, items, keysToExtract) {
     const directoryPath = "data";
     const filePath = path.join(directoryPath, `${fileName}.json`);
     const content = {};
-    // console.log(items);
+
     items.forEach((item) => {
-        if (item.name === "Aviator") console.log(item);
         content[item.uniqueName] = keysToExtract.reduce(
             (obj, key) => ({ ...obj, [key]: item[key] }),
             {},
         );
     });
-    // const content = items.map((item) =>
-    //     keysToExtract.reduce((obj, key) => ({ ...obj, [key]: item[key] }), {}),
-    // );
 
     if (!fs.existsSync(directoryPath)) {
         fs.mkdirSync(directoryPath, { recursive: true });
