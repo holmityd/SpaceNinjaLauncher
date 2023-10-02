@@ -9,15 +9,26 @@ fn greet(name: &str) -> String {
 
 use tauri::{api::process::Command, Manager};
 
+mod server;
+use std::thread;
+
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
+            // sidecar for node server
             app.get_window("main").unwrap();
             tauri::async_runtime::spawn(async move {
                 Command::new_sidecar("WarframeServer")
                     .expect("failed to setup `app` sidecar")
                     .spawn()
                     .expect("Failed to spawn packaged node");
+            });
+
+            // seperate thread for actix-web
+            let handle = app.handle();
+            let boxed_handle = Box::new(handle);
+            thread::spawn(move || {
+                server::init(*boxed_handle).unwrap();
             });
 
             Ok(())
