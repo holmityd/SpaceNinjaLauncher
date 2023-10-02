@@ -6,11 +6,13 @@
     import { filterBySearch } from "../../lib/common";
 
     import { onMount } from "svelte";
+    import { getUsers } from "../../services/user.service";
 
     let users = [];
     onMount(async () => {
         const response = await fetch("/api/users.json");
-        users = await response.json();
+        // users = await response.json();
+        users = await getUsers();
     });
 
     let searchTerm = "";
@@ -26,7 +28,7 @@
     </div>
 
     <Grid>
-        {#each filteredUsers as user (user.username)}
+        {#each filteredUsers as user}
             <UserCard {user} />
         {/each}
     </Grid>

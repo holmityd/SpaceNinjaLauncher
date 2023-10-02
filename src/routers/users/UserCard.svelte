@@ -8,7 +8,7 @@
 
     async function userSelect() {
         navigate("/dashboard");
-        fetchUserData(user.id);
+        fetchUserData(user);
     }
 
     $: cardClass = twMerge(
@@ -20,8 +20,8 @@
 </script>
 
 <Card class={cardClass} padding="none" color="none" on:click={userSelect}>
-    <div class="cursor-pointer p-4">
-        <h2 class="mb-2 text-2xl font-semibold">{user.username}</h2>
+    <div class="aspect-[1/1] cursor-pointer p-4">
+        <h2 class="mb-2 text-2xl font-semibold">{user.display_name}</h2>
         <p>Email: {user.email}</p>
     </div>
 </Card>

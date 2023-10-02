@@ -1,0 +1,467 @@
+{
+    "SubscribedToEmails": 0,
+    "Created": {
+        "$date": "1685829131"
+    },
+    "RewardSeed": -5604904486637266000,
+    "RegularCredits": 3000,
+    "PremiumCredits": 50,
+    "PremiumCreditsFree": 50,
+    "FusionPoints": 0,
+    "SuitBin": {
+        "Slots": 1
+    },
+    "WeaponBin": {
+        "Slots": 5
+    },
+    "SentinelBin": {
+        "Slots": 10
+    },
+    "SpaceSuitBin": {
+        "Slots": 4
+    },
+    "SpaceWeaponBin": {
+        "Slots": 4
+    },
+    "PvpBonusLoadoutBin": {
+        "Slots": 0
+    },
+    "PveBonusLoadoutBin": {
+        "Slots": 0
+    },
+    "RandomModBin": {
+        "Slots": 15
+    },
+    "TradesRemaining": 0,
+    "DailyAffiliation": 16000,
+    "DailyAffiliationPvp": 16000,
+    "DailyAffiliationLibrary": 16000,
+    "DailyFocus": 250000,
+    "GiftsRemaining": 8,
+    "MiscItems": [],
+    "ChallengesFixVersion": 6,
+    "ChallengeProgress": [
+        {
+            "Progress": 2,
+            "Name": "EMGetKills"
+        }
+    ],
+    "RawUpgrades": [
+        {
+            "ItemType": "/Lotus/Upgrades/Mods/Warframe/AvatarShieldMaxMod",
+            "ItemCount": 1,
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f107502"
+            }
+        }
+    ],
+    "ReceivedStartingGear": true,
+    "Suits": [
+        {
+            "ItemType": "/Lotus/Powersuits/Volt/Volt",
+            "Configs": [
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f107504"
+                    },
+                    "Songs": []
+                },
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f107505"
+                    },
+                    "Songs": []
+                },
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f107506"
+                    },
+                    "Songs": []
+                }
+            ],
+            "UpgradeVer": 101,
+            "XP": 0,
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f107503"
+            },
+            "Polarity": []
+        }
+    ],
+    "LongGuns": [
+        {
+            "ItemType": "/Lotus/Weapons/MK1Series/MK1Paris",
+            "Configs": [
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f107508"
+                    },
+                    "Songs": []
+                },
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f107509"
+                    },
+                    "Songs": []
+                },
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f10750a"
+                    },
+                    "Songs": []
+                }
+            ],
+            "XP": 0,
+            "ModularParts": [],
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f107507"
+            }
+        }
+    ],
+    "Pistols": [
+        {
+            "ItemType": "/Lotus/Weapons/MK1Series/MK1Kunai",
+            "Configs": [
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f10750c"
+                    },
+                    "Songs": []
+                },
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f10750d"
+                    },
+                    "Songs": []
+                },
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f10750e"
+                    },
+                    "Songs": []
+                }
+            ],
+            "XP": 0,
+            "ModularParts": [],
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f10750b"
+            }
+        }
+    ],
+    "Melee": [
+        {
+            "ItemType": "/Lotus/Weapons/Tenno/Melee/LongSword/LongSword",
+            "Configs": [
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f107510"
+                    },
+                    "Songs": []
+                },
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f107511"
+                    },
+                    "Songs": []
+                },
+                {
+                    "Skins": [],
+                    "Upgrades": [],
+                    "PvpUpgrades": [],
+                    "_id": {
+                        "$oid": "6514c87fbbc8ac0e5f107512"
+                    },
+                    "Songs": []
+                }
+            ],
+            "XP": 0,
+            "ModularParts": [],
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f10750f"
+            }
+        }
+    ],
+    "Ships": [
+        {
+            "ItemType": "/Lotus/Types/Items/Ships/DefaultShip",
+            "ItemId": {
+                "$oid": "647bd27cf856530b4f3bf343"
+            }
+        }
+    ],
+    "QuestKeys": [
+        {
+            "ItemType": "/Lotus/Types/Keys/VorsPrize/VorsPrizeQuestKeyChain"
+        }
+    ],
+    "FlavourItems": [
+        {
+            "ItemType": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageItem1",
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f107513"
+            }
+        },
+        {
+            "ItemType": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageItem2",
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f107514"
+            }
+        },
+        {
+            "ItemType": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageItem3",
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f107515"
+            }
+        },
+        {
+            "ItemType": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageItem4",
+            "_id": {
+                "$oid": "6514c87fbbc8ac0e5f107516"
+            }
+        }
+    ],
+    "Scoops": [
+        {
+            "ItemType": "/Lotus/Weapons/Tenno/Speedball/SpeedballWeaponTest",
+            "ItemId": {
+                "$oid": "647bd27cf856530b4f3bf343"
+            }
+        }
+    ],
+    "TrainingRetriesLeft": 0,
+    "CurrentLoadOutIds": [],
+    "Missions": [],
+    "XPInfo": [],
+    "Recipes": [
+        {
+            "ItemCount": 1,
+            "ItemType": "/Lotus/Types/Recipes/Weapons/BoltonfaBlueprint"
+        }
+    ],
+    "WeaponSkins": [
+        {
+            "ItemType": "/Lotus/Upgrades/Skins/Volt/VoltHelmet",
+            "ItemId": {
+                "$oid": "647bd27cf856530b4f3bf343"
+            }
+        }
+    ],
+    "PendingRecipes": [],
+    "TrainingDate": {
+        "$date": "1685829131"
+    },
+    "PlayerLevel": 0,
+    "Upgrades": [],
+    "EquippedGear": [],
+    "DeathMarks": [],
+    "FusionTreasures": [],
+    "CompletedAlerts": [],
+    "Consumables": [
+        {
+            "ItemCount": 1,
+            "ItemType": "/Lotus/Types/Restoratives/LisetAutoHack"
+        }
+    ],
+    "LevelKeys": [],
+    "TauntHistory": [],
+    "StoryModeChoice": "WARFRAME",
+    "PeriodicMissionCompletions": [],
+    "KubrowPetEggs": [],
+    "LoreFragmentScans": [],
+    "EquippedEmotes": [],
+    "PendingTrades": [],
+    "Boosters": [],
+    "Affiliations": [],
+    "QualifyingInvasions": [],
+    "FactionScores": [],
+    "SpaceSuits": [],
+    "SpaceMelee": [],
+    "SpaceGuns": [],
+    "PendingSpectreLoadouts": [],
+    "SpectreLoadouts": [],
+    "SentinelWeapons": [],
+    "Sentinels": [],
+    "EmailItems": [],
+    "CompletedSyndicates": [],
+    "Wishlist": [],
+    "CompletedSorties": [],
+    "LastSortieReward": [],
+    "Drones": [],
+    "StepSequencers": [],
+    "KubrowPets": [],
+    "ShipDecorations": [],
+    "OperatorAmpBin": {
+        "Slots": 8
+    },
+    "DailyAffiliationCetus": 16000,
+    "DailyAffiliationQuills": 16000,
+    "DiscoveredMarkers": [],
+    "CompletedJobs": [],
+    "FocusUpgrades": [],
+    "OperatorAmps": [],
+    "HasContributedToDojo": false,
+    "KubrowPetPrints": [],
+    "PersonalGoalProgress": [],
+    "DailyAffiliationSolaris": 16000,
+    "SpecialItems": [],
+    "ChallengeInstanceStates": [],
+    "LoginMilestoneRewards": [],
+    "OperatorLoadOuts": [],
+    "DailyAffiliationVentkids": 16000,
+    "DailyAffiliationVox": 16000,
+    "RecentVendorPurchases": [],
+    "Hoverboards": [],
+    "NodeIntrosCompleted": [
+        "WelcomeScreen_Kullervo",
+        "EliteAlert"
+    ],
+    "CompletedJobChains": [],
+    "SeasonChallengeHistory": [
+        {
+            "challenge": "SeasonDailySolveCiphers",
+            "id": "001000220000000000000308"
+        },
+        {
+            "challenge": "SeasonDailyVisitFeaturedDojo",
+            "id": "001000230000000000000316"
+        },
+        {
+            "challenge": "SeasonDailyKillEnemiesWithRadiation",
+            "id": "001000230000000000000317"
+        },
+        {
+            "challenge": "SeasonWeeklyCompleteSortie",
+            "id": "001000230000000000000309"
+        },
+        {
+            "challenge": "SeasonWeeklyVenusBounties",
+            "id": "001000230000000000000310"
+        },
+        {
+            "challenge": "SeasonWeeklyZarimanBountyHunter",
+            "id": "001000230000000000000311"
+        },
+        {
+            "challenge": "SeasonWeeklyCatchRarePlainsFish",
+            "id": "001000230000000000000312"
+        },
+        {
+            "challenge": "SeasonWeeklyKillArchgunEnemies",
+            "id": "001000230000000000000313"
+        },
+        {
+            "challenge": "SeasonWeeklyHardKillSilverGroveSpecters",
+            "id": "001000230000000000000314"
+        },
+        {
+            "challenge": "SeasonWeeklyHardKillRopalolyst",
+            "id": "001000230000000000000315"
+        }
+    ],
+    "MoaPets": [],
+    "InvasionChainProgress": [],
+    "DataKnives": [
+        {
+            "ItemType": "/Lotus/Weapons/Tenno/HackingDevices/TnHackingDevice/TnHackingDeviceWeapon",
+            "XP": 450000,
+            "ItemId": {
+                "$oid": "647bd274f22fc794a2cd3d33"
+            }
+        }
+    ],
+    "NemesisHistory": [],
+    "PersonalTechProjects": [],
+    "CrewShips": [],
+    "CrewShipSalvageBin": {
+        "Slots": 8
+    },
+    "CrewShipAmmo": [],
+    "CrewShipSalvagedWeaponSkins": [],
+    "CrewShipWeapons": [],
+    "CrewShipSalvagedWeapons": [],
+    "CrewShipWeaponSkins": [],
+    "PlayedParkourTutorial": true,
+    "SubscribedToEmailsPersonalized": 0,
+    "MechBin": {
+        "Slots": 4
+    },
+    "DailyAffiliationEntrati": 16000,
+    "DailyAffiliationNecraloid": 16000,
+    "MechSuits": [],
+    "CrewMemberBin": {
+        "Slots": 3
+    },
+    "CrewShipHarnesses": [],
+    "CrewShipRawSalvage": [],
+    "CrewMembers": [],
+    "AdultOperatorLoadOuts": [],
+    "DailyAffiliationZariman": 16000,
+    "NemesisAbandonedRewards": [],
+    "DailyAffiliationKahl": 16000,
+    "LastInventorySync": {
+        "$oid": "647bd27cf856530b4f3bf343"
+    },
+    "NextRefill": {
+        "$date": "1685829131"
+    },
+    "ActiveLandscapeTraps": [],
+    "EvolutionProgress": [],
+    "RepVotes": [],
+    "LeagueTickets": [],
+    "Quests": [],
+    "Robotics": [],
+    "UsedDailyDeals": [],
+    "LibraryPersonalProgress": [],
+    "CollectibleSeries": [],
+    "LibraryAvailableDailyTaskInfo": {
+        "EnemyTypes": [
+            "/Lotus/Types/Enemies/Orokin/OrokinBladeSawmanAvatar"
+        ],
+        "EnemyLocTag": "/Lotus/Language/Game/OrokinBladeSawman",
+        "EnemyIcon": "/Lotus/Interface/Icons/Npcs/Orokin/OrokinBladeSawman.png",
+        "ScansRequired": 4,
+        "RewardStoreItem": "/Lotus/StoreItems/Upgrades/Mods/FusionBundles/UncommonFusionBundle",
+        "RewardQuantity": 10,
+        "RewardStanding": 10000
+    },
+    "HasResetAccount": false,
+    "PendingCoupon": {
+        "Expiry": {
+            "$date": "1685829131"
+        },
+        "Discount": 0
+    },
+    "__v": 2
+}

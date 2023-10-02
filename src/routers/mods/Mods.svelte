@@ -55,7 +55,6 @@
                     item.UpgradeFingerprint === detail.UpgradeFingerprint,
             )
         ) {
-            console.log("here");
             unSelectMods([detail]);
         } else {
             selectMods([detail]);
@@ -85,10 +84,11 @@
         unSelectMods(selected);
     }
     function remove() {
-        const postItems = selected.map(({ ItemType, UpgradeFingerprint, ItemId }) => ({
+        const postItems = selected.map(({ ItemType, ItemCount, UpgradeFingerprint, _id }) => ({
             ItemType,
+            ItemCount,
             UpgradeFingerprint,
-            ItemId,
+            _id,
         }));
 
         unSelectMods(selected);
@@ -107,12 +107,12 @@
     onMount(() => {
         const stopModSubsciption = userStore.subscribe((value) => {
             mods = [...value.inventory.RawUpgrades, ...value.inventory.Upgrades]
-                .map(({ ItemType, ItemCount, UpgradeFingerprint, ItemId }) => ({
+                .map(({ ItemType, ItemCount, UpgradeFingerprint, _id }) => ({
                     ...modsData[ItemType],
                     ItemType,
                     ItemCount,
                     UpgradeFingerprint,
-                    ItemId,
+                    _id,
                 }))
                 .filter((i) => !!i.uniqueName);
         });

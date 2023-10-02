@@ -4,13 +4,11 @@ This template should help get you started developing with Tauri and Svelte in Vi
 
 ## Installation
 
-Follow these steps to set up the project:
+Prepare .env and build folder (Note: need node18)
 
 ```
 npm install
 ```
-
-(Note: This command will autorun package script, need Node18 version)
 
 ```
 npm run tauri:build

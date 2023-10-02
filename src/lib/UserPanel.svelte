@@ -6,9 +6,6 @@
 
     // dropdown
     let dropdown = false;
-    function toggleDropdown() {
-        dropdown = !dropdown;
-    }
     function hideDropdown() {
         dropdown = false;
     }
@@ -22,7 +19,13 @@
         hideDropdown();
     }
     function sync() {
-        fetchUserData($userStore.id);
+        // console.log($userStore);
+        const { display_name, email, id } = $userStore;
+        fetchUserData({
+            display_name,
+            email,
+            id,
+        });
         hideDropdown();
     }
     function signOut() {
@@ -34,10 +37,10 @@
 <div class="relative h-10 w-10">
     <Avatar class="acs cursor-pointer" src="/avatar.png" dot={{ color: "green" }} />
 
-    <Dropdown triggeredBy=".acs" class="top-100 right-0 mt-1.5">
+    <Dropdown bind:open={dropdown} triggeredBy=".acs" class="top-100 right-0 mt-1.5">
         <div slot="header" class="px-4 py-2">
-            <span class="block text-sm text-white">Holmityd</span>
-            <span class="block truncate text-sm font-medium">test@test.com</span>
+            <span class="block text-sm text-white">{$userStore.display_name}</span>
+            <span class="block truncate text-sm font-medium">{$userStore.email}</span>
         </div>
         <DropdownItem on:click={dashboard}>Dashboard</DropdownItem>
         <DropdownItem on:click={sync}>Sync</DropdownItem>

@@ -1,34 +1,41 @@
-import {
-    addModsToStore,
-    removeModsFromStore,
-    updateModInStore,
-    userStore,
-} from "../store/User.store";
+import { get } from "svelte/store";
+import { userStore } from "../store/User.store";
+
+export async function getUsers() {
+    const response = await fetch("http://localhost:53426/accounts");
+    const data = await response.json();
+    return data;
+}
 
 /**
  * Fetches user data from the server and sets it in the user store.
  *
- * @param {string} id - The user ID.
  * @returns {Promise<void>} A promise that resolves when the data has been fetched and set.
  */
-export async function fetchUserData(id) {
-    try {
-        const response = await fetch("/api/user.json");
-        const data = await response.json();
-        userStore.set(data);
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
+export async function fetchUserData(user) {
+    const response = await fetch(`http://localhost:53426/inventory/${user.id}`);
+    user.inventory = await response.json();
+    userStore.set(user);
 }
 
 /**
  * Sends remove mods request and removes mods from the user store.
  *
- * @param {Array<{ItemType: string, UpgradeFingerprint: string, ItemId: {$oid: string}}>} postItems - The items to be removed.
+ * @param {Array<{ItemType: string, ItemCount: number, UpgradeFingerprint: string, _id: {$oid: string}}>} postItems - The items to be removed.
  */
-export function removeMods(postItems) {
-    // TODO - send request
-    removeModsFromStore(postItems);
+export async function removeMods(postItems) {
+    const user = get(userStore);
+    const response = await fetch(`http://localhost:53426/mods/remove/${user.id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postItems),
+    });
+    user.inventory = await response.json();
+    userStore.set(user);
+    // // TODO - send request
+    // removeModsFromStore(postItems);
 }
 
 /**
@@ -36,12 +43,32 @@ export function removeMods(postItems) {
  *
  * @param {Array<{ItemType: string, ItemCount?: number, UpgradeFingerprint?: string}>} postItems - The items to be added.
  */
-export function addMods(postItems) {
-    // TODO - send request
-    addModsToStore(postItems);
+export async function addMods(postItems) {
+    const user = get(userStore);
+    const response = await fetch(`http://localhost:53426/mods/add/${user.id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postItems),
+    });
+    user.inventory = await response.json();
+    userStore.set(user);
+    // // TODO - send request
+    // addModsToStore(postItems);
 }
 
-export function updateMod(postItem) {
-    // TODO - send request
-    updateModInStore(postItem);
+export async function updateMod(postItem) {
+    const user = get(userStore);
+    const response = await fetch(`http://localhost:53426/mods/update/${user.id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postItem),
+    });
+    user.inventory = await response.json();
+    userStore.set(user);
+    // // TODO - send request
+    // updateModInStore(postItem);
 }

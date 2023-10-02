@@ -16,16 +16,17 @@
     }
 
     function save() {
-        const { ItemId, UpgradeFingerprint, ItemType } = editMod;
+        const { _id, UpgradeFingerprint, ItemType } = editMod;
         updateMod({
-            ItemId,
+            _id,
             UpgradeFingerprint,
             ItemType,
         });
+        openModal = false;
     }
 </script>
 
-<Modal size="xs" title={editMod.name} bind:open={openModal} autoclose outsideclose>
+<Modal size="xs" title={editMod.name} bind:open={openModal} outsideclose>
     <div class="flex gap-4">
         <ModCard class="w-56" mod={editMod} position={{}} />
         <div class="mb-6">
