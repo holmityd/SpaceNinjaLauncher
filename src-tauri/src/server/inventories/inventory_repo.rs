@@ -85,7 +85,6 @@ impl InventoryRepo {
         };
 
         let mut set_fields = bson::document::Document::new();
-
         for (key, value) in bson_doc {
             if value != Bson::Null {
                 set_fields.insert(key, value);
