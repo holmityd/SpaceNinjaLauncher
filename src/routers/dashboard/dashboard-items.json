@@ -9,7 +9,8 @@
         "icon": "fas fa-globe",
         "name": "Suits",
         "url": "suits",
-        "color": "blue-800"
+        "color": "blue-800",
+        "working": true
     },
     {
         "icon": "fas fa-satellite-dish",

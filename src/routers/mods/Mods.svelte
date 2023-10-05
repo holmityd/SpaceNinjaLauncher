@@ -6,7 +6,6 @@
     import { navigate } from "svelte-routing";
     import { Button } from "flowbite-svelte";
     import { removeMods } from "../../services/user.service";
-    import { Modal } from "flowbite-svelte";
     import { onMount } from "svelte";
     import ModModalInfo from "./components/ModModalInfo.svelte";
 

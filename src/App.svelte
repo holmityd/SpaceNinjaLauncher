@@ -5,6 +5,7 @@
     import Mods from "./routers/mods/Mods.svelte";
     import ModsAdd from "./routers/mods/ModsAdd.svelte";
     import Dashboard from "./routers/dashboard/Dashboard.svelte";
+    import Suits from "./routers/suits/Suits.svelte";
 </script>
 
 <Router>
@@ -18,6 +19,11 @@
     <Route path="/dashboard/mods">
         <Header />
         <Mods />
+    </Route>
+
+    <Route path="/dashboard/suits">
+        <Header />
+        <Suits />
     </Route>
     <Route path="/dashboard/mods/add">
         <Header />

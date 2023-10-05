@@ -1,8 +1,11 @@
 import { get } from "svelte/store";
 import { userStore } from "../store/User.store";
 
+const serverUrl = "http://localhost:53426";
+
 export async function getUsers() {
-    const response = await fetch("http://localhost:53426/accounts");
+    const response = await fetch("api/users.json");
+    // const response = await fetch(`${serverUrl}/accounts`);
     const data = await response.json();
     return data;
 }
@@ -11,8 +14,10 @@ export async function getUsers() {
  * @param {{id: string, email: string, display_name: string}} user - The user object.
  */
 export async function fetchUserData(user) {
-    const response = await fetch(`http://localhost:53426/inventory/${user.id}`);
-    const inventory = await response.json();
+    const response = await fetch("api/user.json");
+    const { inventory } = await response.json();
+    // const response = await fetch(`${serverUrl}/inventory/${user.id}`);
+    // const inventory = await response.json();
     userStore.set({ ...user, inventory });
 }
 
@@ -39,7 +44,7 @@ export function updateMod(postItem) {
 
 async function doModsRequestAndChangeInStore(action, body) {
     const user = get(userStore);
-    const response = await fetch(`http://localhost:53426/mods/${action}/${user.id}`, {
+    const response = await fetch(`${serverUrl}/mods/${action}/${user.id}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

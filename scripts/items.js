@@ -2,6 +2,17 @@ import fs from "fs";
 import path from "path";
 import Items from "warframe-items";
 
+function getKeys(items) {
+    let itemsKey = new Set();
+    items.forEach((item) => {
+        Object.keys(item).forEach((key) => {
+            itemsKey.add(key);
+        });
+    });
+    itemsKey = new Set([...itemsKey].sort((a, b) => a.localeCompare(b)));
+    console.log(itemsKey);
+}
+
 function extractJson(fileName, items, keysToExtract) {
     const directoryPath = "data";
     const filePath = path.join(directoryPath, `${fileName}.json`);
@@ -21,6 +32,8 @@ function extractJson(fileName, items, keysToExtract) {
     fs.writeFileSync(filePath, JSON.stringify(content), "utf8");
 }
 
+// getKeys(new Items({ category: ["Warframes"] }));
+
 extractJson("mods", new Items({ category: ["Mods"] }), [
     "fusionLimit",
     "compatName",
@@ -36,4 +49,47 @@ extractJson("mods", new Items({ category: ["Mods"] }), [
     "polarity",
     "baseDrain",
     "isPrime",
+]);
+
+extractJson("suits", new Items({ category: ["Warframes"] }), [
+    "abilities",
+    "armor",
+    "aura",
+    "bpCost",
+    "buildPrice",
+    "buildQuantity",
+    "buildTime",
+    "category",
+    "color",
+    "components",
+    "conclave",
+    "consumeOnBuild",
+    "description",
+    "estimatedVaultDate",
+    "exalted",
+    "health",
+    "imageName",
+    "isPrime",
+    "marketCost",
+    "masterable",
+    "masteryReq",
+    "name",
+    "passiveDescription",
+    "polarities",
+    "power",
+    "productCategory",
+    "releaseDate",
+    "sex",
+    "shield",
+    "skipBuildTimePrice",
+    "sprint",
+    "sprintSpeed",
+    "stamina",
+    "tradable",
+    "type",
+    "uniqueName",
+    "vaultDate",
+    "vaulted",
+    "wikiaThumbnail",
+    "wikiaUrl",
 ]);

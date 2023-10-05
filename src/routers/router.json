@@ -12,5 +12,10 @@
         "path": "/dashboard/mods/add",
         "title": "Mods - Add",
         "back": "/dashboard/mods"
+    },
+    {
+        "path": "/dashboard/suits",
+        "title": "Suits",
+        "back": "/dashboard"
     }
 ]
