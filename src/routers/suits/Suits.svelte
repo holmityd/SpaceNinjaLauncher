@@ -1,33 +1,68 @@
 <script>
     import { userStore } from "../../store/User.store";
-
     import suitsData from "../../../data/suits.json";
-    import Grid from "../../lib/Grid.svelte";
-    import { filterBySearch } from "../../lib/common";
-    import SuitCard from "./SuitCard.svelte";
-    import Search from "../../lib/Search.svelte";
+    import SelectPanel from "../../lib/SelectPanel.svelte";
+    import SuitsCatalog from "./components/SuitsCatalog.svelte";
+    import CatalogActions from "../../lib/CatalogActions.svelte";
+    import SuitModalInfo from "./components/SuitModalInfo.svelte";
+    import { onMount } from "svelte";
+    import { removeSuits } from "../../services/user.service";
 
-    let suits = $userStore.inventory.Suits.map((suit) => ({
-        ...suit,
-        ...suitsData[suit.ItemType],
-    }));
+    // CatalogActions
+    let removeMode;
 
-    let searchTerm = "";
-    let searchedSuits = [];
-    $: searchedSuits = filterBySearch(searchTerm, suits, ["name"]);
+    // SuitsCatalog
+    const getSuits = (value) =>
+        [...value.inventory.Suits].map((suit) => ({
+            ...suit,
+            info: suitsData[suit.ItemType],
+        }));
+    let displayedItems = [];
+    /**
+     * @type {Array<import("../../types/inventory.types").SuitData>}
+     */
+    let suits;
+    function cardClick({ detail }) {
+        if (!removeMode) {
+            modModalOpen = true;
+            modModalInfo = detail;
+        } else {
+            selectOne(detail);
+        }
+    }
+
+    // SelectPanel
+    let selectOne;
+    function remove(items) {
+        const postItems = items.map(({ _id }) => ({
+            _id,
+        }));
+        removeSuits(postItems);
+    }
+
+    // SuitModalInfo
+    let modModalOpen = false;
+    let modModalInfo;
+
+    onMount(() => {
+        const stopModSubsciption = userStore.subscribe((value) => {
+            suits = getSuits(value);
+        });
+        return () => {
+            stopModSubsciption();
+        };
+    });
 </script>
 
-<div class="container mx-auto box-border flex flex-col">
-    <div
-        class="sticky top-0 z-10 flex flex-wrap gap-4 py-4 lg:flex-nowrap"
-        style="background-color: #2f2f2f;"
-    >
-        <Search bind:value={searchTerm} />
-    </div>
+{#if suits}
+    <div class="container mx-auto box-border flex flex-col">
+        <CatalogActions bind:removeMode />
 
-    <Grid>
-        {#each searchedSuits as suit, index}
-            <SuitCard {suit} />
-        {/each}
-    </Grid>
-</div>
+        <SuitsCatalog {suits} bind:displayedItems on:cardClick={cardClick} />
+
+        <SelectPanel {remove} bind:active={removeMode} bind:displayedItems bind:selectOne />
+    </div>
+{/if}
+{#if modModalInfo}
+    <SuitModalInfo bind:openModal={modModalOpen} suit={modModalInfo} />
+{/if}

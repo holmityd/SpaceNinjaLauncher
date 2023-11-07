@@ -19,7 +19,6 @@
         hideDropdown();
     }
     function sync() {
-        // console.log($userStore);
         const { display_name, email, id } = $userStore;
         fetchUserData({
             display_name,

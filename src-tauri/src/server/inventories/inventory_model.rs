@@ -1,7 +1,10 @@
 use mongodb::bson::oid::ObjectId;
 use serde::{Deserialize, Serialize};
 
-use crate::server::mods::mods_model::{RawUpgrade, Upgrade};
+use crate::server::{
+    mods::mods_model::{RawUpgrade, Upgrade},
+    suits::suit_model::Suit,
+};
 
 #[derive(Default, Debug, Serialize, Deserialize)]
 pub struct Inventory {
@@ -318,22 +321,6 @@ pub struct Equipment {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Suit {
-    #[serde(rename = "_id")]
-    pub id: ObjectId,
-    #[serde(rename = "ItemType")]
-    pub item_type: serde_json::Value,
-    #[serde(rename = "Configs")]
-    pub configs: Vec<Config>,
-    #[serde(rename = "XP")]
-    pub xp: i32,
-    #[serde(rename = "UpgradeVer")]
-    pub upgrade_ver: i32,
-    #[serde(rename = "Polarity")]
-    pub polarity: Vec<serde_json::Value>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
 pub struct Weapon {
     #[serde(rename = "_id")]
     pub id: ObjectId,
@@ -443,7 +430,7 @@ pub struct PendingCoupon {
     pub discount: i32,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Date {
     #[serde(rename = "$date")]
     pub date: serde_json::Value,

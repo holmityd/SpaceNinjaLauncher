@@ -1,34 +1,28 @@
 <script>
     import PlayButton from "../../lib/PlayButton.svelte";
-    import Search from "../../lib/Search.svelte";
+    import NewSearch from "../../lib/NewSearch.svelte";
     import Grid from "../../lib/Grid.svelte";
     import UserCard from "./UserCard.svelte";
-    import { filterBySearch } from "../../lib/common";
 
     import { onMount } from "svelte";
     import { getUsers } from "../../services/user.service";
 
     let users = [];
     onMount(async () => {
-        const response = await fetch("/api/users.json");
+        // const response = await fetch("/api/users.json");
         // users = await response.json();
         users = await getUsers();
     });
-
-    let searchTerm = "";
-    $: filteredUsers = searchTerm
-        ? filterBySearch(searchTerm, users, ["username", "email"])
-        : users;
+    let displayedItems = [];
 </script>
 
-<div class="container mx-auto flex flex-col p-4">
-    <div class="sticky top-0 z-10 mb-4 flex gap-4">
-        <Search bind:value={searchTerm} />
+<div class="container mx-auto box-border flex flex-col">
+    <NewSearch items={users} bind:displayedItems searchTerms={["username", "email"]}>
         <PlayButton />
-    </div>
+    </NewSearch>
 
     <Grid>
-        {#each filteredUsers as user}
+        {#each displayedItems as user}
             <UserCard {user} />
         {/each}
     </Grid>

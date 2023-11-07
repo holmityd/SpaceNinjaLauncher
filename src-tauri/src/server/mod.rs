@@ -1,6 +1,7 @@
 mod accounts;
 mod inventories;
 mod mods;
+mod suits;
 use accounts::{account_controller::get_all_accounts, account_repo::AccountRepo};
 
 use dotenv::dotenv;
@@ -13,10 +14,13 @@ use mongodb::{Client, Database};
 
 use inventories::{inventory_controller::get_inventory_by_user_id, inventory_repo::InventoryRepo};
 use mods::mods_controller::{mod_update, mods_add, mods_remove};
+use suits::suit_controller::suits_add;
 
 use std::sync::Mutex;
 
 use tauri::AppHandle;
+
+use self::suits::suit_controller::{suits_remove, suits_update};
 
 pub struct TauriAppState {
     pub app: Mutex<AppHandle>,
@@ -24,10 +28,7 @@ pub struct TauriAppState {
 
 pub async fn get_mongo_database() -> Database {
     dotenv().ok();
-    let uri = match env::var("MONGODB_URL") {
-        Ok(v) => v,
-        Err(_) => panic!("Error loading env variable"),
-    };
+    let uri = "mongodb://127.0.0.1:27017/wf_emulator";
     let db_name = uri.split('/').last().unwrap_or("No last part found.");
     let client = Client::with_uri_str(&uri)
         .await
@@ -77,6 +78,9 @@ pub async fn init(app: AppHandle) -> std::io::Result<()> {
             .service(mod_update)
             .service(mods_add)
             .service(mods_remove)
+            .service(suits_add)
+            .service(suits_remove)
+            .service(suits_update)
     })
     .bind(("127.0.0.1", 53426))?
     .run()

@@ -17,5 +17,10 @@
         "path": "/dashboard/suits",
         "title": "Suits",
         "back": "/dashboard"
+    },
+    {
+        "path": "/dashboard/suits/add",
+        "title": "Suits - Add",
+        "back": "/dashboard/suits"
     }
 ]
