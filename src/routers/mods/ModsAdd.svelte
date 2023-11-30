@@ -1,11 +1,9 @@
 <script>
     import modsData from "../../../data/mods.json";
     import ModsCatalog from "./components/ModsCatalog.svelte";
-    import SelectPanel from "../../lib/SelectPanel.svelte";
     import { addMods } from "../../services/user.service";
+    import CategoryAddPage from "../../lib/CategoryAddPage.svelte";
 
-    // ModsCatalog
-    let displayedItems = [];
     let items = Object.values(modsData)
         .filter((item) => item.name !== "Unfused Artifact" && item.type !== "Mod Set Mod")
         .map((item) => {
@@ -23,12 +21,7 @@
             }
             return newItem;
         });
-    function cardClick({ detail }) {
-        selectOne(detail);
-    }
 
-    // SelectPanel
-    let selectOne;
     function add(items) {
         const postItems = items.map(({ ItemType, ItemCount, UpgradeFingerprint }) => ({
             ItemType,
@@ -37,11 +30,8 @@
         }));
         addMods(postItems);
     }
+    // TODO
     let maxLevel = false;
 </script>
 
-<div class="container mx-auto box-border flex flex-col">
-    <ModsCatalog {items} bind:displayedItems on:cardClick={cardClick} />
-
-    <SelectPanel {add} bind:displayedItems bind:selectOne />
-</div>
+<CategoryAddPage {items} {add} catalogComponent={ModsCatalog} />

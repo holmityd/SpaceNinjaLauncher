@@ -31,6 +31,7 @@
         "<DT_CORROSIVE>",
         "<DT_MAGNETIC>",
         "<DT_VIRAL>",
+        "<LINE_SEPARATOR>",
     ];
     const regexPattern = `(${statIcons.join("|")})`;
     const regex = new RegExp(regexPattern, "g");
