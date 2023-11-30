@@ -1,15 +1,12 @@
 <script>
     import suitsData from "../../../data/suits.json";
+    import SuitsCatalog from "./components/SuitsCatalog.svelte";
     import SelectPanel from "../../lib/SelectPanel.svelte";
     import { addSuits } from "../../services/user.service";
-    import SuitsCatalog from "./components/SuitsCatalog.svelte";
 
     // SuitsCatalog
     let displayedItems = [];
-    /**
-     * @type {Array<import("../../types/inventory.types").SuitData>}
-     */
-    let suits = Object.values(suitsData).map((item) => ({
+    let items = Object.values(suitsData).map((item) => ({
         ItemType: item.uniqueName,
         Configs: [],
         UpgradeVer: 101,
@@ -34,7 +31,7 @@
 </script>
 
 <div class="container mx-auto box-border flex flex-col">
-    <SuitsCatalog {suits} bind:displayedItems on:cardClick={cardClick} />
+    <SuitsCatalog {items} bind:displayedItems on:cardClick={cardClick} />
 
     <SelectPanel {add} bind:displayedItems bind:selectOne />
 </div>

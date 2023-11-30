@@ -6,14 +6,11 @@
     import { updateSuit } from "../../../services/user.service";
     import { getSuitLvlByXP, suitLvlXP } from "../services/suit.service";
     export let openModal = false;
-    /**
-     * @type {import("../../../types/inventory.types").SuitData}
-     */
-    export let suit;
+    export let item;
 
-    $: editSuit = { ...suit };
+    $: editSuit = { ...item };
 
-    let lvl = getSuitLvlByXP(suit.XP);
+    let lvl = getSuitLvlByXP(item.XP);
 
     function changeLvl(e) {
         let lvl = parseInt(e.target.value) - 1;
@@ -33,7 +30,7 @@
         editSuit.Polarized = parseInt(e.target.value);
     }
 
-    $: polarity = suit.Polarity;
+    $: polarity = item.Polarity;
 
     function save() {
         const {
@@ -66,7 +63,7 @@
 
 <Modal size="xs" title={editSuit.info.name} bind:open={openModal} outsideclose>
     <div class="flex gap-4">
-        <SuitCard suit={editSuit} />
+        <SuitCard item={editSuit} />
         <div>
             <Label for="suit-lvl" class="mb-2 block">Level</Label>
             <Input

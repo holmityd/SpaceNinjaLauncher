@@ -7,10 +7,10 @@
      * @type {Array<import("../../../types/inventory.types").SuitData>}
      */
 
-    export let suits;
+    export let items;
     export let displayedItems;
 </script>
 
-<NewSearch items={suits} bind:displayedItems />
+<NewSearch {items} bind:displayedItems />
 
 <VirtualizedList list={displayedItems} itemComponent={SuitCard} on:cardClick />

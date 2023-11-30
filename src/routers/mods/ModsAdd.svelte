@@ -1,12 +1,12 @@
 <script>
-    import Icon from "@iconify/svelte";
     import modsData from "../../../data/mods.json";
     import ModsCatalog from "./components/ModsCatalog.svelte";
-    import { Button, Checkbox } from "flowbite-svelte";
-    import { navigate } from "svelte-routing";
+    import SelectPanel from "../../lib/SelectPanel.svelte";
     import { addMods } from "../../services/user.service";
 
-    let mods = Object.values(modsData)
+    // ModsCatalog
+    let displayedItems = [];
+    let items = Object.values(modsData)
         .filter((item) => item.name !== "Unfused Artifact" && item.type !== "Mod Set Mod")
         .map((item) => {
             const newItem = {
@@ -23,78 +23,25 @@
             }
             return newItem;
         });
-    let displayedItems = [];
-
-    // select logic
-    let selected = [];
-    function selectMods(items) {
-        let notExistingItems = items.filter(
-            (item) => !selected.find((select) => select.ItemType === item.ItemType),
-        );
-        selected = [...selected, ...notExistingItems];
-        notExistingItems.forEach((item) => {
-            item.active = true;
-        });
-        mods = [...mods];
-    }
-    function unSelectMods(items) {
-        selected = selected.filter(
-            (select) => !items.find((item) => select.ItemType === item.ItemType),
-        );
-        items.forEach((item) => {
-            item.active = false;
-        });
-        mods = [...mods];
-    }
-
-    // buttons
     function cardClick({ detail }) {
-        if (selected.find((item) => item.ItemType === detail.ItemType)) {
-            unSelectMods([detail]);
-        } else {
-            selectMods([detail]);
-        }
+        selectOne(detail);
     }
-    function selectAllDisplayed() {
-        selectMods(displayedItems);
-    }
-    function clear() {
-        unSelectMods(selected);
-    }
-    let maxLevel = true;
-    function add() {
-        const postItems = selected.map(({ ItemType, ItemCount, UpgradeFingerprint }) => ({
+
+    // SelectPanel
+    let selectOne;
+    function add(items) {
+        const postItems = items.map(({ ItemType, ItemCount, UpgradeFingerprint }) => ({
             ItemType,
             ItemCount: maxLevel ? ItemCount : ItemCount || 1,
             ...(maxLevel && { UpgradeFingerprint }),
         }));
-
-        unSelectMods(selected);
-
         addMods(postItems);
-
-        navigate("/dashboard/mods");
     }
+    let maxLevel = false;
 </script>
 
-<div class="container mx-auto flex flex-col">
-    <ModsCatalog {mods} bind:displayedItems on:cardClick={cardClick} />
-    <div class="box-b container fixed bottom-0 flex flex-row items-center gap-4 bg-gray-800 p-4">
-        <p class="flex-grow">Selected {selected.length} mods</p>
-        <Checkbox bind:checked={maxLevel}>Max level</Checkbox>
-        <Button
-            class="gap-1 border border-transparent hover:border-blue-600"
-            on:click={selectAllDisplayed}
-        >
-            <Icon icon="iconoir:list-select" /> Select all
-        </Button>
-        <Button class="gap-1 border border-transparent hover:border-blue-600" on:click={clear}
-            ><Icon icon="mdi:broom" /> Clear</Button
-        >
-        <Button
-            class="gap-1 border border-transparent hover:border-green-600"
-            color="green"
-            on:click={add}><Icon icon="mdi:add" /> Add</Button
-        >
-    </div>
+<div class="container mx-auto box-border flex flex-col">
+    <ModsCatalog {items} bind:displayedItems on:cardClick={cardClick} />
+
+    <SelectPanel {add} bind:displayedItems bind:selectOne />
 </div>

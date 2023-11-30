@@ -4,9 +4,9 @@
     import { updateMod } from "../../../services/user.service";
     import Icon from "@iconify/svelte";
     export let openModal = false;
-    export let mod;
+    export let item;
 
-    $: editMod = { ...mod };
+    $: editMod = { ...item };
 
     $: lvl = editMod.UpgradeFingerprint ? JSON.parse(editMod.UpgradeFingerprint).lvl || 0 : 0;
 
@@ -28,7 +28,7 @@
 
 <Modal size="xs" title={editMod.name} bind:open={openModal} outsideclose>
     <div class="flex gap-4">
-        <ModCard class="w-56" mod={editMod} position={{}} />
+        <ModCard class="w-56" item={editMod} position={{}} />
         <div class="mb-6">
             <Label for="mod-fusion-level" class="mb-2 block">Fusion level</Label>
             <Input

@@ -12,16 +12,13 @@
     let removeMode;
 
     // SuitsCatalog
-    const getSuits = (value) =>
+    const getList = (value) =>
         [...value.inventory.Suits].map((suit) => ({
             ...suit,
             info: suitsData[suit.ItemType],
         }));
+    let items;
     let displayedItems = [];
-    /**
-     * @type {Array<import("../../types/inventory.types").SuitData>}
-     */
-    let suits;
     function cardClick({ detail }) {
         if (!removeMode) {
             modModalOpen = true;
@@ -45,24 +42,25 @@
     let modModalInfo;
 
     onMount(() => {
-        const stopModSubsciption = userStore.subscribe((value) => {
-            suits = getSuits(value);
+        const stopGetListSubscription = userStore.subscribe((value) => {
+            items = getList(value);
         });
         return () => {
-            stopModSubsciption();
+            stopGetListSubscription();
         };
     });
 </script>
 
-{#if suits}
-    <div class="container mx-auto box-border flex flex-col">
-        <CatalogActions bind:removeMode />
+<div class="container mx-auto box-border flex flex-col">
+    <CatalogActions bind:removeMode />
 
-        <SuitsCatalog {suits} bind:displayedItems on:cardClick={cardClick} />
+    {#if items}
+        <SuitsCatalog {items} bind:displayedItems on:cardClick={cardClick} />
+    {/if}
 
-        <SelectPanel {remove} bind:active={removeMode} bind:displayedItems bind:selectOne />
-    </div>
-{/if}
-{#if modModalInfo}
-    <SuitModalInfo bind:openModal={modModalOpen} suit={modModalInfo} />
+    <SelectPanel {remove} bind:active={removeMode} bind:displayedItems bind:selectOne />
+</div>
+
+{#if modModalOpen}
+    <SuitModalInfo bind:openModal={modModalOpen} item={modModalInfo} />
 {/if}

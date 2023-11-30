@@ -68,14 +68,14 @@
         "hover:bg-gray-800",
         "active:ring-4",
         rarityCard[item?.rarity],
+        item?._selected && "bg-blue-800 hover:bg-blue-700",
         $$props.class,
     );
 </script>
 
 <Card class={cardClass} padding="none" color="none" on:click={cardClick}>
     <div
-        class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden text-center
-            {item?.active && 'bg-blue-700'}"
+        class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden text-center"
     >
         <div class="pointer-events-none aspect-[5/4] overflow-hidden rounded-t-lg bg-gray-950">
             <img class="w-full scale-110" src={image} alt="mod" />

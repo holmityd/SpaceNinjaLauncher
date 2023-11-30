@@ -5,13 +5,13 @@
     import ModFilters from "./ModFilters.svelte";
     import VirtualizedList from "../../../lib/VirtualizedList.svelte";
 
-    export let mods = [];
+    export let items = [];
     export let displayedItems;
 
     // filter
     let filter;
     let filteredMods = [];
-    $: filteredMods = (filter && filter(mods)) || mods;
+    $: filteredMods = (filter && filter(items)) || items;
 
     // category
     let category;
