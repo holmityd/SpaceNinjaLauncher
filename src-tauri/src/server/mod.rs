@@ -5,7 +5,7 @@ mod suits;
 use accounts::{account_controller::get_all_accounts, account_repo::AccountRepo};
 
 use dotenv::dotenv;
-use std::env;
+// use std::env;
 
 use actix_cors::Cors;
 use actix_web::{http, middleware, web, web::Data, App, HttpServer};

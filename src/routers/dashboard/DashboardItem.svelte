@@ -5,8 +5,8 @@
 
     export let category;
 
-    function click() {
-        if (category.working) {
+    function navigateToCategory() {
+        if (category?.url) {
             navigate(`/dashboard/${category.url}`);
         }
     }
@@ -19,9 +19,22 @@
     );
 </script>
 
-<Card class={cardClass} padding="none" color="none" on:click={click}>
-    <div class="aspect-[1/1] p-4 {category.working ? 'cursor-pointer' : ''}">
-        <i class="{category.icon} text-4xl"></i>
-        <p>{category.name}</p>
+<Card class={cardClass} padding="none" color="none" on:click={navigateToCategory}>
+    <div class="group relative aspect-[1/1] cursor-pointer select-none p-4">
+        <div class="aspect-[1/1] w-full overflow-hidden">
+            <div class="relative -mt-1 aspect-[1/1] w-full overflow-hidden">
+                <img
+                    class="pointer-events-none absolute w-full group-hover:bottom-0"
+                    src={category.img || "default-image.jpg"}
+                    alt={category.name}
+                />
+            </div>
+        </div>
+
+        <h5
+            class="border-box absolute bottom-0 left-0 w-full bg-gray-900 px-4 py-2 text-center capitalize tracking-wide group-hover:bg-gray-800"
+        >
+            {category.name}
+        </h5>
     </div>
 </Card>

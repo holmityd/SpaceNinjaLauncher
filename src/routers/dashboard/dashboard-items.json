@@ -1,70 +1,122 @@
 [
     {
-        "icon": "fas fa-space-shuttle",
-        "name": "Profile",
-        "url": "profile",
-        "color": "indigo-800"
-    },
-    {
-        "icon": "fas fa-globe",
-        "name": "Suits",
+        "name": "Warframes",
         "url": "suits",
-        "color": "blue-800",
-        "working": true
+        "img": "https://static.wikia.nocookie.net/warframe/images/6/68/HomeWarframes.png"
     },
     {
-        "icon": "fas fa-satellite-dish",
-        "name": "Melee",
-        "url": "melee",
-        "color": "gray-800"
+        "name": "weapons",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/3/33/HomeWeapons.png"
     },
     {
-        "icon": "fas fa-space-shuttle",
-        "name": "Ranged",
-        "url": "ranged",
-        "color": "gray-800"
+        "name": "companions",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/f/ff/HomeCompanions.png"
     },
     {
-        "icon": "fas fa-globe",
-        "name": "Secondary",
-        "url": "secondary",
-        "color": "indigo-800"
+        "name": "archwing",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/a/ad/HomeArchwing.png"
     },
     {
-        "icon": "fas fa-satellite-dish",
+        "name": "equipment",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/8/85/HomeEquipment.png"
+    },
+    {
         "name": "Mods",
         "url": "mods",
-        "color": "blue-800",
-        "working": true
+        "img": "https://static.wikia.nocookie.net/warframe/images/d/de/HomeMods.png"
     },
     {
-        "icon": "fas fa-microchip",
-        "name": "Sentinel",
-        "url": "sentinel",
-        "color": "blue-800"
+        "name": "pickups",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/e/ee/HomePickups.png"
     },
     {
-        "icon": "fas fa-cogs",
-        "name": "Blueprints",
-        "url": "blueprints",
-        "color": "indigo-800"
+        "name": "resources",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/e/e3/HomeResources.png"
     },
     {
-        "icon": "fas fa-space-shuttle",
-        "name": "Ship",
-        "url": "ship",
-        "color": "gray-800"
+        "name": "factions",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/3/35/HomeFactions.png"
     },
     {
-        "icon": "fas fa-book",
-        "name": "Quest",
-        "url": "quest",
-        "color": "gray-800"
+        "name": "syndicates",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/9/9b/HomeSyndicates.png"
     },
     {
-        "icon": "fas fa-tasks",
-        "name": "Missions",
-        "url": "missions",
-        "color": "indigo-800"
+        "name": "star chart",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/d/da/HomePlanets.png"
+    },
+    {
+        "name": "tile sets",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/5/5c/HomeMaps.png"
+    },
+    {
+        "name": "missions",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/4/48/HomeMission.png"
+    },
+    {
+        "name": "railjack",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/f/f3/HomeRailjack.png"
+    },
+    {
+        "name": "maneuvers",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/0/06/HomeParkour.png"
+    },
+    {
+        "name": "damage",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/5/5c/HomeDamage.png"
+    },
+    {
+        "name": "rewards",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/b/bf/HomeRewards.png"
+    },
+    {
+        "name": "foundry",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/f/f3/HomeFoundry.png"
+    },
+    {
+        "name": "mastery rank",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/8/81/HomeMastery.png"
+    },
+    {
+        "name": "clan",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/c/ce/HomeClan.png"
+    },
+    {
+        "name": "focus",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/a/a0/HomeFocus.png"
+    },
+    {
+        "name": "quests",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/9/9c/HomeQuest.png"
+    },
+    {
+        "name": "lich system",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/c/cb/HomeLich.png"
+    },
+    {
+        "name": "helmith",
+        "url": "",
+        "img": "https://static.wikia.nocookie.net/warframe/images/a/a3/HomeHelminth.png"
     }
 ]
