@@ -1,7 +1,6 @@
 <script>
     import { Card } from "flowbite-svelte";
     import { twMerge } from "tailwind-merge";
-    import Image from "../../../lib/Image.svelte";
     import { createEventDispatcher } from "svelte";
     import { getSuitLvlByXP } from "../services/suit.service";
 
@@ -43,7 +42,7 @@
     <div class="flex select-none flex-col items-center gap-4">
         <p>({item?.Polarized | 0})</p>
         <div class="pointer-events-none h-32 w-32">
-            <Image src={image} alt={item?.info.name} />
+            <img src={image} alt={item?.info.name} />
         </div>
         <h5
             class="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold tracking-tight"
