@@ -10,13 +10,10 @@
     import ModModalInfo from "./components/ModModalInfo.svelte";
 
     let mods;
+    let displayedItems = [];
 
     // select logic
     let selected = [];
-    let displayedList = [];
-    function displayedListChange({ detail }) {
-        displayedList = detail;
-    }
     function selectMods(items) {
         let notExistingItems = items.filter(
             (item) =>
@@ -77,7 +74,7 @@
         }
     }
     function selectAllDisplayed() {
-        selectMods(displayedList);
+        selectMods(displayedItems);
     }
     function clear() {
         unSelectMods(selected);
@@ -138,7 +135,7 @@
     </div>
 
     {#if mods}
-        <ModsCatalog {mods} on:cardClick={cardClick} on:displayedListChange={displayedListChange} />
+        <ModsCatalog {mods} bind:displayedItems on:cardClick={cardClick} />
     {/if}
 
     {#if removeMode}

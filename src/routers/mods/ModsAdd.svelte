@@ -23,13 +23,10 @@
             }
             return newItem;
         });
+    let displayedItems = [];
 
     // select logic
     let selected = [];
-    let displayedList = [];
-    function displayedListChange({ detail }) {
-        displayedList = detail;
-    }
     function selectMods(items) {
         let notExistingItems = items.filter(
             (item) => !selected.find((select) => select.ItemType === item.ItemType),
@@ -59,7 +56,7 @@
         }
     }
     function selectAllDisplayed() {
-        selectMods(displayedList);
+        selectMods(displayedItems);
     }
     function clear() {
         unSelectMods(selected);
@@ -81,7 +78,7 @@
 </script>
 
 <div class="container mx-auto flex flex-col">
-    <ModsCatalog {mods} on:cardClick={cardClick} on:displayedListChange={displayedListChange} />
+    <ModsCatalog {mods} bind:displayedItems on:cardClick={cardClick} />
     <div class="box-b container fixed bottom-0 flex flex-row items-center gap-4 bg-gray-800 p-4">
         <p class="flex-grow">Selected {selected.length} mods</p>
         <Checkbox bind:checked={maxLevel}>Max level</Checkbox>

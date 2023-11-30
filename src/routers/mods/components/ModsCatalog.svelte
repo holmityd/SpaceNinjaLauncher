@@ -1,14 +1,12 @@
 <script>
-    import Search from "../../../lib/Search.svelte";
-    import { onMount } from "svelte";
-    import { filterBySearch } from "../../../lib/common";
+    import NewSearch from "../../../lib/NewSearch.svelte";
     import ModCard from "./ModCard.svelte";
     import ModCategories from "./ModCategories.svelte";
     import ModFilters from "./ModFilters.svelte";
-    import { createEventDispatcher } from "svelte";
     import VirtualizedList from "../../../lib/VirtualizedList.svelte";
 
     export let mods = [];
+    export let displayedItems;
 
     // filter
     let filter;
@@ -36,37 +34,16 @@
                 );
         }
     }
-
-    // search
-    const dispatch = createEventDispatcher();
-    let searchTerm = "";
-    let searchedMods = [];
-    $: {
-        searchedMods = filterBySearch(searchTerm, categoriedMods, [
-            "name",
-            "compatName",
-            "levelStats.0.stats.all",
-        ]);
-        dispatch("displayedListChange", searchedMods);
-    }
-
-    // lifecycle
-    onMount(async () => {
-        dispatch("displayedListChange", searchedMods);
-    });
 </script>
 
-<div
-    class="sticky top-0 z-10 flex flex-wrap gap-4 py-4 lg:flex-nowrap"
-    style="background-color: #2f2f2f;"
+<NewSearch
+    class="order-1 w-1/3 flex-grow"
+    items={categoriedMods}
+    bind:displayedItems
+    searchTerms={["name", "compatName", "levelStats.0.stats.all"]}
 >
-    <Search
-        class="order-1 w-1/3 flex-grow"
-        id="warframelauncher-mod-search"
-        bind:value={searchTerm}
-    />
     <ModCategories class="order-3 w-full flex-grow lg:order-2" bind:value={category} />
     <ModFilters class="order-2 w-1/3 flex-grow lg:order-3" bind:value={filter} />
-</div>
+</NewSearch>
 
-<VirtualizedList list={searchedMods} itemComponent={ModCard} on:cardClick />
+<VirtualizedList list={displayedItems} itemComponent={ModCard} on:cardClick />
