@@ -3,19 +3,18 @@
     import { twMerge } from "tailwind-merge";
     import { Card } from "flowbite-svelte";
     import Icon from "@iconify/svelte";
-    export let mod;
-    export let position = undefined;
+    export let item = undefined;
 
     // image
     $: image =
-        mod?.wikiaThumbnail?.substring(
+        item?.wikiaThumbnail?.substring(
             0,
-            (mod.wikiaThumbnail.lastIndexOf(".png") + 1 ||
-                mod.wikiaThumbnail.lastIndexOf(".gif") + 1) + 3,
+            (item.wikiaThumbnail.lastIndexOf(".png") + 1 ||
+                item.wikiaThumbnail.lastIndexOf(".gif") + 1) + 3,
         ) || "https://static.wikia.nocookie.net/warframe/images/7/72/Fusion_Core_horizontal.png";
 
     // level
-    $: lvl = mod?.UpgradeFingerprint ? JSON.parse(mod.UpgradeFingerprint).lvl || 0 : 0;
+    $: lvl = item?.UpgradeFingerprint ? JSON.parse(item.UpgradeFingerprint).lvl || 0 : 0;
 
     // stats
     const statIcons = [
@@ -36,8 +35,8 @@
     const regexPattern = `(${statIcons.join("|")})`;
     const regex = new RegExp(regexPattern, "g");
     $: stats =
-        mod?.levelStats && mod.levelStats[lvl]
-            ? mod.levelStats[lvl]?.stats.reduce(
+        item?.levelStats && item.levelStats[lvl]
+            ? item.levelStats[lvl]?.stats.reduce(
                   (acc, item) => acc + item.replace(regex, "") + "\n",
                   "",
               )
@@ -60,7 +59,7 @@
     // on:cardClick
     const dispatch = createEventDispatcher();
     function cardClick() {
-        dispatch("cardClick", mod);
+        dispatch("cardClick", item);
     }
 
     $: cardClass = twMerge(
@@ -68,49 +67,41 @@
         "bg-gray-900 border-gray-800 text-gray-400",
         "hover:bg-gray-800",
         "active:ring-4",
-        !position && "invisible",
-        rarityCard[mod?.rarity],
+        rarityCard[item?.rarity],
         $$props.class,
     );
 </script>
 
-<Card
-    class={cardClass}
-    padding="none"
-    color="none"
-    on:click={cardClick}
-    style={position?.top !== undefined &&
-        `position: absolute;top: ${position.top}px; left: ${position.left}px; width: ${position.width}px; height: ${position.height}px`}
->
+<Card class={cardClass} padding="none" color="none" on:click={cardClick}>
     <div
         class="relative flex aspect-[4/6] cursor-pointer select-none flex-col overflow-hidden text-center
-            {mod?.active && 'bg-blue-700'}"
+            {item?.active && 'bg-blue-700'}"
     >
         <div class="pointer-events-none aspect-[5/4] overflow-hidden rounded-t-lg bg-gray-950">
             <img class="w-full scale-110" src={image} alt="mod" />
         </div>
 
         <!-- count -->
-        {#if mod?.ItemCount > 1}
+        {#if item?.ItemCount > 1}
             <div
                 class="pointer-events-none absolute left-0 top-0.5 flex items-center justify-center gap-1 rounded-br rounded-tr border border-l-0 border-gray-900 bg-black bg-opacity-75 px-2 text-white"
             >
                 <Icon icon="solar:copy-bold-duotone" />
-                <b>{mod?.ItemCount}</b>
+                <b>{item?.ItemCount}</b>
             </div>
         {/if}
 
         <div class="flex flex-grow flex-col overflow-hidden p-4">
-            {#if mod}
+            {#if item}
                 <!-- name -->
-                <h5 class="mb-2 text-xl font-bold tracking-tight {rarityTitle[mod.rarity]}">
-                    {mod.name}
+                <h5 class="mb-2 text-xl font-bold tracking-tight {rarityTitle[item.rarity]}">
+                    {item.name}
                 </h5>
 
                 <!-- description -->
                 <div class="flex-grow overflow-hidden text-sm">
-                    {#if mod?.description}
-                        <p>{mod?.type}: {mod?.description}</p>
+                    {#if item?.description}
+                        <p>{item?.type}: {item?.description}</p>
                     {/if}
 
                     <!-- stats -->
@@ -126,7 +117,7 @@
                     <span
                         class="m-1 inline-block rounded border border-gray-300 px-3 py-1 text-xs uppercase"
                     >
-                        {mod?.compatName}
+                        {item?.compatName}
                     </span>
                 </div>
 
@@ -135,7 +126,7 @@
                     {#each Array(lvl) as _}
                         <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
                     {/each}
-                    {#each Array(Math.max(0, (mod?.fusionLimit || 0) - lvl)) as _}
+                    {#each Array(Math.max(0, (item?.fusionLimit || 0) - lvl)) as _}
                         <div class="h-1.5 w-1.5 rounded-full border border-white"></div>
                     {/each}
                 </div>
