@@ -42,6 +42,9 @@
     let modModalInfo;
 
     onMount(() => {
+        setTimeout(() => {
+            displayedItems = [...displayedItems]; // reactivity fix after NewSearch will give displayedItems
+        });
         const stopGetListSubscription = userStore.subscribe((value) => {
             items = getList(value);
         });
