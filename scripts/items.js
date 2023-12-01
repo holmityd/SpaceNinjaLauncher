@@ -18,7 +18,7 @@ function extractJson(fileName, items, keysToExtract = undefined) {
     const filePath = path.join(directoryPath, `${fileName}.json`);
     let content = items;
     if (keysToExtract) {
-        let content = {};
+        content = {};
         items.forEach((item) => {
             content[item.uniqueName] = keysToExtract.reduce(
                 (obj, key) => ({ ...obj, [key]: item[key] }),
