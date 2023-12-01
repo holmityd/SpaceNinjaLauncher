@@ -2,7 +2,7 @@
     import Icon from "@iconify/svelte";
     import { navigate } from "svelte-routing";
     import { Button } from "flowbite-svelte";
-    import pages from "../routers/router.json";
+    import pages from "../routers";
 
     export let add = undefined;
     export let remove = undefined;

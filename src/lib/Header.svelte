@@ -1,5 +1,5 @@
 <script>
-    import pages from "../routers/router.json";
+    import pages from "../routers";
     import Icon from "@iconify/svelte";
     import { navigate } from "svelte-routing";
     import UserPanel from "./UserPanel.svelte";
