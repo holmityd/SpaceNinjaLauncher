@@ -9,7 +9,7 @@ You can choose to either download the .exe files or generate them by yourself.
 ### Download
 1. Download latest [release](https://github.com/holmityd/SpaceNinjaLauncher/releases) version
 2. Paste the downloaded files into your game directory.
-3. Run "WarframeLauncher.exe"
+3. Run "SpaceNinjaLauncher.exe"
 
 ### Generate 
 ##### Prerequisites
@@ -31,7 +31,7 @@ You can choose to either download the .exe files or generate them by yourself.
 
 ## Build
 1. ```npm run tauri:build```
-2. Copy "WarframeLauncher.exe" and "WarframeServer.exe" from "src-tauri/target/release" and place them in the folder with the game.
+2. Copy "SpaceNinjaLauncher.exe" and "SpaceNinjaServer.exe" from "src-tauri/target/release" and place them in the folder with the game.
 
 ## Dev
 1. ```npm run dev``` - Run the frontend in the Svelte framework

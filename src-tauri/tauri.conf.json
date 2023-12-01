@@ -7,8 +7,8 @@
         "withGlobalTauri": false
     },
     "package": {
-        "productName": "WarframeLauncher",
-        "version": "0.0.2"
+        "productName": "SpaceNinjaLauncher",
+        "version": "0.0.3"
     },
     "tauri": {
         "allowlist": {
@@ -50,7 +50,7 @@
                 "icons/icon.ico"
             ],
             "externalBin": [
-                "binaries/WarframeServer",
+                "binaries/SpaceNinjaServer",
                 "binaries/Warframe.x64"
             ]
         },
@@ -61,7 +61,7 @@
             {
                 "fullscreen": false,
                 "resizable": true,
-                "title": "WarframeLauncher",
+                "title": "SpaceNinjaLauncher",
                 "width": 800,
                 "height": 600
             }

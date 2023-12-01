@@ -1,7 +1,7 @@
 [package]
-name = "warframe_launcher"
-version = "0.0.2"
-description = "WarframeLauncher"
+name = "space_ninja_launcher"
+version = "34.0.7"
+description = "SpaceNinjaLauncher"
 authors = ["you"]
 license = ""
 repository = ""

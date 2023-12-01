@@ -10,7 +10,7 @@
 import { execa } from "execa";
 import fs from "fs";
 
-const nodeServerBinName = "WarframeServer";
+const nodeServerBinName = "SpaceNinjaServer";
 const launchBinName = "Warframe.x64";
 
 let extension = "";

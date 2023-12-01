@@ -1,12 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
 use tauri::{api::process::Command, Manager};
 
 mod server;
@@ -22,19 +16,16 @@ fn main() {
     let mut client = DiscordIpcClient::new("1180118975934382090").unwrap();
     client.connect().unwrap();
 
-    // Calculate elapsed time
+    let version: &str = &format!("v{}", env!("CARGO_PKG_VERSION"));
+    let name = env!("CARGO_PKG_DESCRIPTION");
     let start_time = SystemTime::now();
     let unix_time = start_time.duration_since(UNIX_EPOCH).unwrap().as_secs() as i64;
 
     client
         .set_activity(
             activity::Activity::new()
-                .state("v0.0.2")
-                .assets(
-                    activity::Assets::new()
-                        .large_image("big")
-                        .large_text("SpaceNinjaLauncher"),
-                )
+                .state(version)
+                .assets(activity::Assets::new().large_image("big").large_text(name))
                 .timestamps(activity::Timestamps::new().start(unix_time)),
         )
         .unwrap();
@@ -60,7 +51,6 @@ fn main() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

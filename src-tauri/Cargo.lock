@@ -3553,6 +3553,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "space_ninja_launcher"
+version = "34.0.7"
+dependencies = [
+ "actix-cors",
+ "actix-web",
+ "chrono",
+ "discord-rich-presence",
+ "dotenv",
+ "futures",
+ "mongodb",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+]
+
+[[package]]
 name = "spin"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4412,23 +4429,6 @@ checksum = "d71d857dc86794ca4c280d616f7da00d2dbfd8cd788846559a6813e6aa4b54ee"
 dependencies = [
  "same-file",
  "winapi-util",
-]
-
-[[package]]
-name = "warframe_launcher"
-version = "0.0.2"
-dependencies = [
- "actix-cors",
- "actix-web",
- "chrono",
- "discord-rich-presence",
- "dotenv",
- "futures",
- "mongodb",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
 ]
 
 [[package]]
