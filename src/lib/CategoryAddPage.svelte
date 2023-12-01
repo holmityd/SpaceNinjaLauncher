@@ -4,6 +4,7 @@
     export let items;
     export let add;
     export let catalogComponent;
+    export let selectPanelAdditionComponent = undefined;
 
     // ModsCatalog
     let displayedItems = [];
@@ -23,5 +24,5 @@
         on:cardClick={cardClick}
     />
 
-    <SelectPanel {add} bind:displayedItems bind:selectOne />
+    <SelectPanel {add} bind:displayedItems bind:selectOne content={selectPanelAdditionComponent} />
 </div>

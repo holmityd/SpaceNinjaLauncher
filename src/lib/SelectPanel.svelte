@@ -8,6 +8,7 @@
     export let remove = undefined;
     export let active = true;
     export let displayedItems;
+    export let content = undefined;
     export const selectOne = (item) => {
         if (selected.find((v) => item === v)) {
             unselect([item]);
@@ -80,6 +81,7 @@
     <div class=" mt-20"></div>
     <div class="box-b container fixed bottom-0 flex flex-row items-center gap-4 bg-gray-800 p-4">
         <p class="flex-grow">Selected {selected.length} items</p>
+        <svelte:component this={content}></svelte:component>
         <Button
             class="gap-1 border border-transparent hover:border-blue-600"
             on:click={selectAllDisplayed}
