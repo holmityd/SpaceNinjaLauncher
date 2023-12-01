@@ -13,17 +13,19 @@ function getKeys(items) {
     console.log(itemsKey);
 }
 
-function extractJson(fileName, items, keysToExtract) {
+function extractJson(fileName, items, keysToExtract = undefined) {
     const directoryPath = "data";
     const filePath = path.join(directoryPath, `${fileName}.json`);
-    const content = {};
-
-    items.forEach((item) => {
-        content[item.uniqueName] = keysToExtract.reduce(
-            (obj, key) => ({ ...obj, [key]: item[key] }),
-            {},
-        );
-    });
+    let content = items;
+    if (keysToExtract) {
+        let content = {};
+        items.forEach((item) => {
+            content[item.uniqueName] = keysToExtract.reduce(
+                (obj, key) => ({ ...obj, [key]: item[key] }),
+                {},
+            );
+        });
+    }
 
     if (!fs.existsSync(directoryPath)) {
         fs.mkdirSync(directoryPath, { recursive: true });
@@ -93,3 +95,5 @@ extractJson("suits", new Items({ category: ["Warframes"] }), [
     "wikiaThumbnail",
     "wikiaUrl",
 ]);
+
+extractJson("miscs", new Items({ category: ["Misc"] }));
