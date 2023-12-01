@@ -8,4 +8,4 @@
     }
 </script>
 
-<Checkbox checked={$maxLevelStore} on:change={onChange}>Max level</Checkbox>
+<Checkbox class="select-none" checked={$maxLevelStore} on:change={onChange}>Max level</Checkbox>
