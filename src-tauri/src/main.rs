@@ -10,9 +10,36 @@ fn greet(name: &str) -> String {
 use tauri::{api::process::Command, Manager};
 
 mod server;
-use std::thread;
+
+use discord_rich_presence::{activity, DiscordIpc, DiscordIpcClient};
+use std::{
+    thread,
+    time::{SystemTime, UNIX_EPOCH},
+};
 
 fn main() {
+    // Initialize Discord Rich Presence
+    let mut client = DiscordIpcClient::new("1180118975934382090").unwrap();
+    client.connect().unwrap();
+
+    // Calculate elapsed time
+    let start_time = SystemTime::now();
+    let unix_time = start_time.duration_since(UNIX_EPOCH).unwrap().as_secs() as i64;
+
+    client
+        .set_activity(
+            activity::Activity::new()
+                .state("v0.0.2")
+                .assets(
+                    activity::Assets::new()
+                        .large_image("big")
+                        .large_text("SpaceNinjaLauncher"),
+                )
+                .timestamps(activity::Timestamps::new().start(unix_time)),
+        )
+        .unwrap();
+
+    // Initialize Tauri
     tauri::Builder::default()
         .setup(|app| {
             // sidecar for node server
