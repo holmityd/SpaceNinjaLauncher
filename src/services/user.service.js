@@ -1,11 +1,18 @@
 import { get } from "svelte/store";
 import { userStore } from "../store/User.store";
 
+const LOCAL_DATA = import.meta.env.VITE_LOCAL_DATA;
+
 const serverUrl = "http://localhost:53426";
 
 export async function getUsers() {
-    // const response = await fetch("api/users.json");
-    const response = await fetch(`${serverUrl}/accounts`);
+    let apiUrl = `${serverUrl}/accounts`;
+
+    if (LOCAL_DATA) {
+        apiUrl = "api/users.json";
+    }
+
+    const response = await fetch(apiUrl);
     const data = await response.json();
     return data;
 }
@@ -14,9 +21,13 @@ export async function getUsers() {
  * @param {{id: string, email: string, display_name: string}} user - The user object.
  */
 export async function fetchUserData(user) {
-    // const response = await fetch("api/user.json");
-    // const { inventory } = await response.json();
-    const response = await fetch(`${serverUrl}/inventory/${user.id}`);
+    let inventoryUrl = `${serverUrl}/inventory/${user.id}`;
+
+    if (LOCAL_DATA) {
+        inventoryUrl = "api/user.json";
+    }
+
+    const response = await fetch(inventoryUrl);
     const inventory = await response.json();
     userStore.set({ ...user, inventory });
 }
