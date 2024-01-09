@@ -3631,7 +3631,7 @@ dependencies = [
 
 [[package]]
 name = "space_ninja_launcher"
-version = "34.0.7"
+version = "35.0.4"
 dependencies = [
  "actix-cors",
  "actix-web",
