@@ -13,6 +13,11 @@
     "tauri": {
         "allowlist": {
             "all": false,
+            "fs": {
+                "scope": [
+                    "$RESOURCE/*"
+                ]
+            },
             "shell": {
                 "all": true,
                 "execute": true,
@@ -52,6 +57,9 @@
             "externalBin": [
                 "binaries/SpaceNinjaServer",
                 "binaries/Warframe.x64"
+            ],
+            "resources": [
+                "../SpaceNinjaServer/.env"
             ]
         },
         "security": {
