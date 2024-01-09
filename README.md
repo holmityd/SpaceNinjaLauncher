@@ -12,33 +12,27 @@ You can choose to either download the .exe files or generate them by yourself.
 3. Run "SpaceNinjaLauncher.exe"
 
 ### Generate 
-##### Prerequisites
-1. [Install Rust](https://www.rust-lang.org/tools/install)
-2. [Install MongoDB](https://www.mongodb.com/)
+[Install Rust](https://www.rust-lang.org/tools/install)
 
-##### Getting the Build Folder
-1. ```git clone git@github.com:holmityd/SpaceNinjaServer.git```
-2. ```cd SpaceNinjaServer```
-3. ```git checkout bundled-build-2```
-4. ```npm install```
-5. Follow the steps in the "@install guide" (Set up the .env and .bin files).
-6. ```npm run build```
+1. ```git clone git@github.com:holmityd/SpaceNinjaLauncher.git```
+2. ```cd SpaceNinjaLauncher```
+3. ```git clone -b bundled-build-3 git@github.com:holmityd/SpaceNinjaServer.git```
+4. ```cd SpaceNinjaServer```
+5. ```npm install```
+6. prepare .env and [cache data](https://discord.com/channels/1108159019635462206/1108165338048249866/1109158541060743259)
+7. ```cd ..```
+8. create build folder and place [mongod.exe](https://www.mongodb.com/try/download/community) inside - on downloading choose as zip package
+9. ```npm install``` - packaging may fail cause node version, use node18 and rerun ```npm run package```
+10. ```npm run tauri:build```
+11. binary files in folder "src-tauri/target/release" (SpaceNinjaLauncher.exe, SpaceNinjaServer.exe), copy&place to game folder
 
-##### Install
-1. Copy and paste the build folder to the root of your project.
-2. Download [mongo](https://www.mongodb.com/try/download/community) as zip package, and place bin/mongod.exe to build folder
-2. ```npm install```
-
-
-## Build
-1. ```npm run tauri:build```
-2. Copy "SpaceNinjaLauncher.exe" and "SpaceNinjaServer.exe" from "src-tauri/target/release" and place them in the folder with the game.
-
-## Dev
-1. ```npm run dev``` - Run the frontend in the Svelte framework
-2. ```npm run tauri:dev``` - Run both the frontend and backend
-3. ```npm run package``` - Create binary files (build folder -> .exe) (If you encounter a build error related to the node version, consider downgrading to node version 18)
-4. ```npm run update-items``` - Update items from the warframe-items package
+## npm scripts
+1. ```dev``` - front
+2. ```tauri:dev``` - fron&back
+3. ```update-items``` - Update items from the warframe-items package
+4. ```build-server``` - creates bundled build (index.js and other files)
+5. ```mongo-workaround``` - adds mongo-workaround.js script to build/index.js
+6. ```package``` - Create binary files (build folder -> .exe) (If you encounter a build error related to the node version, consider downgrading to node version 18)
 
 ## Recommended IDE Setup
 [VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).

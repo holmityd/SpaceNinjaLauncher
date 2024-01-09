@@ -14,6 +14,7 @@ dist-ssr
 build
 *.local
 .env
+SpaceNinjaServer
 
 # Editor directories and files
 .vscode/*
