@@ -26,6 +26,7 @@ You can choose to either download the .exe files or generate them by yourself.
 
 ##### Install
 1. Copy and paste the build folder to the root of your project.
+2. Download [mongo](https://www.mongodb.com/try/download/community) as zip package, and place bin/mongod.exe to build folder
 2. ```npm install```
 
 

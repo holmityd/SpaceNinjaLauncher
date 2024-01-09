@@ -13,9 +13,10 @@
         "preview": "vite preview",
         "tauri:dev": "tauri dev",
         "tauri:build": "tauri build",
+        "mongo-workaround": "node scripts/move-mongo.js",
         "package": "pkg package.json --output src-tauri/binaries/SpaceNinjaServer && node scripts/move-binary.js",
         "update-items": "node scripts/items.js",
-        "postinstall": "npm run update-items && npm run package"
+        "postinstall": "npm run update-items && npm run mongo-workaround && npm run package"
     },
     "devDependencies": {
         "@iconify/svelte": "^3.1.4",
