@@ -342,16 +342,16 @@ pub struct QuestKey {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FlavourItem {
-    #[serde(rename = "_id")]
-    pub id: ObjectId,
+    // #[serde(rename = "_id")]
+    // pub id: ObjectId,
     #[serde(rename = "ItemType")]
     pub item_type: serde_json::Value,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Config {
-    #[serde(rename = "_id")]
-    pub id: ObjectId,
+    // #[serde(rename = "_id")]
+    // pub id: ObjectId,
     #[serde(rename = "Skins")]
     pub skins: Vec<serde_json::Value>,
     #[serde(rename = "Upgrades")]
@@ -390,12 +390,12 @@ pub struct Consumable {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DataKnife {
-    #[serde(rename = "ItemId")]
-    pub id: ObjectId,
+    // #[serde(rename = "ItemId")]
+    // pub id: ObjectId,
     #[serde(rename = "ItemType")]
     pub item_type: serde_json::Value,
-    #[serde(rename = "XP")]
-    pub xp: i32,
+    // #[serde(rename = "XP")]
+    // pub xp: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -438,8 +438,8 @@ pub struct Date {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Item {
-    #[serde(rename = "ItemId")]
-    pub item_id: ObjectId,
+    // #[serde(rename = "ItemId")]
+    // pub item_id: ObjectId,
     #[serde(rename = "ItemType")]
     pub item_type: serde_json::Value,
 }
