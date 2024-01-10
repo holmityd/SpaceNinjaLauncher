@@ -5,7 +5,6 @@ mod suits;
 use accounts::{account_controller::get_all_accounts, account_repo::AccountRepo};
 
 use dotenv::dotenv;
-// use std::env;
 
 use actix_cors::Cors;
 use actix_web::{http, middleware, web, web::Data, App, HttpServer};
@@ -16,7 +15,7 @@ use inventories::{inventory_controller::get_inventory_by_user_id, inventory_repo
 use mods::mods_controller::{mod_update, mods_add, mods_remove};
 use suits::suit_controller::suits_add;
 
-use std::{io::Read, path::PathBuf, sync::Mutex};
+use std::{io::Read, sync::Mutex, fs::File};
 
 use tauri::AppHandle;
 
@@ -26,26 +25,43 @@ pub struct TauriAppState {
     pub app: Mutex<AppHandle>,
 }
 
-fn read_mongodb_url_from_file(resource_path: PathBuf) -> String {
-    let mut file = std::fs::File::open(&resource_path).expect("failed to open file");
-    let mut contents = String::new();
+const DEFAULT_MONGODB_URL: &str = "mongodb://127.0.0.1:27017/openWF";
 
-    file.read_to_string(&mut contents)
-        .expect("failed to read file contents");
-    for line in contents.lines() {
-        if line.starts_with("MONGODB_URL=") {
-            if let Some(url) = line.strip_prefix("MONGODB_URL=") {
-                return url.trim().trim_matches(['\'', '"'].as_ref()).to_string();
-            }
+fn read_mongodb_url_from_file(resource_path: &str) -> String {
+    let mut file = match File::open(resource_path) {
+        Ok(f) => f,
+        Err(_) => {
+            eprintln!("Error reading the file or file not found. Using default URI.");
+            return String::from(DEFAULT_MONGODB_URL);
         }
+    };
+
+    let mut contents = String::new();
+    if let Err(_) = file.read_to_string(&mut contents) {
+        eprintln!("Error reading file content.");
+        return String::from(DEFAULT_MONGODB_URL);
     }
-    eprintln!("Error reading the file or file not found. Using default URI.");
-    String::from("mongodb://127.0.0.1:27017/openWF")
+
+    let config: serde_json::Value = match serde_json::from_str(&contents) {
+        Ok(c) => c,
+        Err(_) => {
+            eprintln!("Error parsing JSON content.");
+            return String::from(DEFAULT_MONGODB_URL);
+        }
+    };
+
+    if let Some(url) = config.get("mongodbUrl").and_then(|u| u.as_str()) {
+        return url.to_string();
+    } else {
+        eprintln!("'mongodbUrl' parameter not found or not a string.");
+    }
+
+    String::from(DEFAULT_MONGODB_URL)
 }
 
-pub async fn get_mongo_database(resource_path: PathBuf) -> Database {
+pub async fn get_mongo_database() -> Database {
     dotenv().ok();
-    let uri = read_mongodb_url_from_file(resource_path);
+    let uri = read_mongodb_url_from_file("config.json");
     let db_name = uri.split('/').last().unwrap_or("No last part found.");
     let client = Client::with_uri_str(&uri)
         .await
@@ -60,16 +76,7 @@ pub async fn init(app: AppHandle) -> std::io::Result<()> {
         app: Mutex::new(app),
     });
 
-    let resource_path = tauri_app
-        .get_ref()
-        .app
-        .lock()
-        .unwrap()
-        .path_resolver()
-        .resolve_resource("../SpaceNinjaServer/.env")
-        .expect("failed to resolve resource");
-
-    let db = get_mongo_database(resource_path).await;
+    let db = get_mongo_database().await;
 
     let account_repo = AccountRepo::new(db.clone()).await;
     let inventory_repo = InventoryRepo::new(db.clone()).await;
@@ -95,10 +102,6 @@ pub async fn init(app: AppHandle) -> std::io::Result<()> {
             .wrap(cors)
             .app_data(account_data.clone())
             .app_data(inventory_data.clone())
-            // .service(create_account)
-            // .service(get_account)
-            // .service(update_account)
-            // .service(delete_account)
             .service(get_all_accounts)
             .service(get_inventory_by_user_id)
             .service(mod_update)

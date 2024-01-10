@@ -26,9 +26,19 @@ You can choose to either download the .exe files or generate them by yourself.
 10. ```npm run tauri:build```
 11. binary files in folder "src-tauri/target/release" (SpaceNinjaLauncher.exe, SpaceNinjaServer.exe), copy&place to game folder
 
+Note: The default database for the launcher is "mongodb://127.0.0.1:27017/openWF". If you are using a different database, please add the "mongodbUrl" field to the configuration file as shown below:
+
+```json
+{
+  "mongodbUrl": "mongodb://127.0.0.1:27017/wf_emulator",
+  "logPath": "C:\\Users\\USERNAME\\Desktop\\WFLogs",
+  "serverType": "local"
+}
+```
+
 ## npm scripts
 1. ```dev``` - front
-2. ```tauri:dev``` - fron&back
+2. ```tauri:dev``` - front&back
 3. ```update-items``` - Update items from the warframe-items package
 4. ```build-server``` - creates bundled build (index.js and other files)
 5. ```mongo-workaround``` - adds mongo-workaround.js script to build/index.js
