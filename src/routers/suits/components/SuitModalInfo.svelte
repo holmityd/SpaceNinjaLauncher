@@ -5,6 +5,8 @@
     import PolarityInput from "../../../lib/PolarityInput.svelte";
     import { updateSuit } from "../../../services/user.service";
     import { getSuitLvlByXP, suitLvlXP } from "../services/suit.service";
+    import { modalPage } from "../../../store/User.store";
+    import { onMount } from "svelte";
     export let openModal = false;
     export let item;
 
@@ -59,6 +61,15 @@
         });
         openModal = false;
     }
+
+    onMount(() => {
+        modalPage.set(true);
+        return () => {
+            setTimeout(()=>{
+                modalPage.set(false);
+            });
+        };
+    });
 </script>
 
 <Modal size="xs" title={editSuit.info.name} bind:open={openModal} outsideclose>

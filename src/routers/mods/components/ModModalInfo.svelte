@@ -3,6 +3,8 @@
     import ModCard from "./ModCard.svelte";
     import { updateMod } from "../../../services/user.service";
     import Icon from "@iconify/svelte";
+    import { onMount } from "svelte";
+    import { modalPage } from "../../../store/User.store";
     export let openModal = false;
     export let item;
 
@@ -24,6 +26,16 @@
         });
         openModal = false;
     }
+
+    
+    onMount(() => {
+        modalPage.set(true);
+        return () => {
+            setTimeout(()=>{
+                modalPage.set(false);
+            });
+        };
+    });
 </script>
 
 <Modal size="xs" title={editMod.name} bind:open={openModal} outsideclose>

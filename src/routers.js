@@ -16,6 +16,7 @@ const routers = [
     {
         path: "/dashboard",
         title: "Dashboard",
+        back: "/",
         component: Dashboard,
     },
     {

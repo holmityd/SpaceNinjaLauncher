@@ -3,12 +3,27 @@
     import Icon from "@iconify/svelte";
     import { navigate } from "svelte-routing";
     import UserPanel from "./UserPanel.svelte";
+    import { onDestroy, onMount } from "svelte";
+    import { modalPage } from "../store/User.store";
+    import { get } from "svelte/store";
 
     const page = pages.find((i) => i.path === window.location.pathname);
 
     function back() {
         navigate(page.back);
     }
+
+    function backListener(event) {
+        if (event.key === "Escape" && !get(modalPage)) {
+            back();
+        }
+    }
+    onMount(() => {
+        document.addEventListener("keydown", backListener);
+    });
+    onDestroy(() => {
+        document.removeEventListener("keydown", backListener);
+    });
 </script>
 
 <div class="bg-blue-900">

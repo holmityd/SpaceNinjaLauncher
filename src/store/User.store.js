@@ -1,6 +1,8 @@
 import { get, writable } from "svelte/store";
 import { v4 } from "uuid";
 
+export const modalPage = writable(false);
+
 const localUserDataKey = "UserData";
 
 export const userStore = writable(
