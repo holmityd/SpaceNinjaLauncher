@@ -1,6 +1,6 @@
 [package]
 name = "space_ninja_launcher"
-version = "35.0.4"
+version = "35.0.8"
 description = "SpaceNinjaLauncher"
 authors = ["you"]
 license = ""

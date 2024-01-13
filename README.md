@@ -16,7 +16,7 @@ You can choose to either download the .exe files or generate them by yourself.
 
 1. ```git clone git@github.com:holmityd/SpaceNinjaLauncher.git```
 2. ```cd SpaceNinjaLauncher```
-3. ```git clone -b bundled-build-3 git@github.com:holmityd/SpaceNinjaServer.git```
+3. ```git clone -b bundled-build-4 git@github.com:holmityd/SpaceNinjaServer.git```
 4. ```cd SpaceNinjaServer```
 5. ```npm install```
 6. prepare .env and [cache data](https://discord.com/channels/1108159019635462206/1108165338048249866/1109158541060743259)
